@@ -1,4 +1,4 @@
-﻿// Checking
+﻿// Checking class
 // Performs calculations for the user's checking account
 // Manages user's funds, budget, and transactions
 
@@ -37,6 +37,13 @@ public class Checking
     {
         Transaction transaction = new Transaction(transactionDate, description, amount);
         this.transactions.Add(transaction);
+    }
+
+    public Checking(int currentAmount, int monthlyBudget, List<Transaction> transactions)
+    {
+        this.currentAmount = currentAmount;
+        this.monthlyBudget = monthlyBudget;
+        this.transactions = transactions;
     }
 }
 
