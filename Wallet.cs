@@ -1,22 +1,16 @@
-﻿// Checking class
-// Performs calculations for the user's checking account
+﻿// Wallet class
+// Performs calculations for the user's cash wallet
 // Manages user's funds, budget, and transactions
 
-public class Checking
+public class Wallet
 {
     private int currentAmount;
     private int monthlyBudget;
     private List<Transaction> transactions;
 
-    void addAmount(int amount)
-    {
-        this.currentAmount = amount;
-    }
+    void addAmount(int amount) { this.currentAmount = amount; }
 
-    int getAmount()
-    {
-        return this.currentAmount;
-    }
+    int getAmount() { return this.currentAmount; }
 
     void setBudget(int budget)
     {
@@ -28,10 +22,7 @@ public class Checking
         this.monthlyBudget = budget;
     }
 
-    int getBudget()
-    {
-        return this.monthlyBudget;
-    }
+    int getBudget() { return this.monthlyBudget; }
 
     void addTransaction(DateTime transactionDate, string description, int amount)
     {
@@ -39,7 +30,7 @@ public class Checking
         this.transactions.Add(transaction);
     }
 
-    public Checking(int currentAmount, int monthlyBudget, List<Transaction> transactions)
+    public Wallet(int currentAmount, int monthlyBudget, List<Transaction> transactions)
     {
         this.currentAmount = currentAmount;
         this.monthlyBudget = monthlyBudget;

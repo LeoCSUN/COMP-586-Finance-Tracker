@@ -1,20 +1,18 @@
 ﻿// User class
 // Stores user's info
-// Contains Checking and Savings class instances
-
-using Microsoft.VisualBasic;
+// Contains Wallet, Savings, and Brokerage class instances
 
 public class User
 {
     private string name;
-    private Checking checkingAccount;
+    private Wallet walletAccount;
     private Savings savingsAccount;
     private Brokerage brokerageAccount;
 
-    public User(string name, Checking checkingAccount, Savings savingsAccount, Brokerage brokerageAccount)
+    public User(string name, Wallet walletAccount, Savings savingsAccount, Brokerage brokerageAccount)
     {
         this.name = name;
-        this.checkingAccount = checkingAccount;
+        this.walletAccount = walletAccount;
         this.savingsAccount = savingsAccount;
         this.brokerageAccount = brokerageAccount;
     }
