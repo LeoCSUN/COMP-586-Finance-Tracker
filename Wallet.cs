@@ -8,7 +8,22 @@ public class Wallet
     private int monthlyBudget;
     private List<Transaction> transactions;
 
-    void addAmount(int amount) { this.currentAmount = amount; }
+    public Wallet(int currentAmount, int monthlyBudget, List<Transaction> transactions)
+    {
+        if (currentAmount < 0) {
+            throw new ArgumentException("Starting amount cannot be negative", nameof(currentAmount));
+        }
+
+        if (monthlyBudget < 0) {
+            throw new ArgumentException("Starting budget cannot be negative", nameof(monthlyBudget));
+        }
+
+        this.currentAmount = currentAmount;
+        this.monthlyBudget = monthlyBudget;
+        this.transactions = transactions;
+    }
+
+    void addAmount(int amount) { this.currentAmount += amount; }
 
     int getAmount() { return this.currentAmount; }
 
@@ -28,13 +43,6 @@ public class Wallet
     {
         Transaction transaction = new Transaction(transactionDate, description, amount);
         this.transactions.Add(transaction);
-    }
-
-    public Wallet(int currentAmount, int monthlyBudget, List<Transaction> transactions)
-    {
-        this.currentAmount = currentAmount;
-        this.monthlyBudget = monthlyBudget;
-        this.transactions = transactions;
     }
 }
 
