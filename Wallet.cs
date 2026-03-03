@@ -4,58 +4,50 @@
 
 public class Wallet
 {
-    private int currentAmount;
-    private int monthlyBudget;
-    private List<Transaction> transactions;
+    private decimal currentAmount;
+    private decimal monthlyBudget;
+    private readonly List<Transaction> transactions = new();
 
-    public Wallet(int currentAmount, int monthlyBudget, List<Transaction> transactions)
+    public Wallet(decimal startingAmount, decimal monthlyBudget)
     {
-        if (currentAmount < 0) {
-            throw new ArgumentException("Starting amount cannot be negative", nameof(currentAmount));
-        }
+        if (startingAmount < 0) throw new ArgumentOutOfRangeException(nameof(startingAmount));
+        if (monthlyBudget < 0) throw new ArgumentOutOfRangeException(nameof(monthlyBudget));
 
-        if (monthlyBudget < 0) {
-            throw new ArgumentException("Starting budget cannot be negative", nameof(monthlyBudget));
-        }
-
-        this.currentAmount = currentAmount;
+        this.currentAmount = startingAmount;
         this.monthlyBudget = monthlyBudget;
-        this.transactions = transactions;
     }
 
-    void addAmount(int amount) { this.currentAmount += amount; }
+    public decimal CurrentAmount => currentAmount;
+    public decimal MonthlyBudget => monthlyBudget;
+    public IReadOnlyList<Transaction> Transactions => transactions;
 
-    int getAmount() { return this.currentAmount; }
-
-    void setBudget(int budget)
+    public void Deposit(decimal amount)
     {
-        if (budget < 0)
-        {
-            throw new ArgumentException("New budget cannot be negative.", nameof(budget));
-        }
-
-        this.monthlyBudget = budget;
+        if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
+        currentAmount += amount;
     }
 
-    int getBudget() { return this.monthlyBudget; }
-
-    void addTransaction(DateTime transactionDate, string description, int amount)
+    public void Withdraw(decimal amount)
     {
-        Transaction transaction = new Transaction(transactionDate, description, amount);
-        this.transactions.Add(transaction);
+        if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
+        if (amount > currentAmount) throw new InvalidOperationException("Insufficient funds.");
+        currentAmount -= amount;
+    }
+
+    public void SetBudget(decimal budget)
+    {
+        if (budget < 0) throw new ArgumentOutOfRangeException(nameof(budget));
+        monthlyBudget = budget;
+    }
+
+    public void AddTransaction(DateTime date, string description, decimal amount)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentException("Description is required.", nameof(description));
+
+        transactions.Add(new Transaction(date, description, amount));
+        currentAmount += amount;
     }
 }
 
-public struct Transaction
-{
-    public DateTime transactionDate;
-    public string description;
-    public int amount;
-
-    public Transaction(DateTime transactionDate, string description, int amount)
-    {
-        this.transactionDate = transactionDate;
-        this.description = description;
-        this.amount = amount;
-    }
-}
+public record Transaction(DateTime TransactionDate, string Description, decimal Amount);

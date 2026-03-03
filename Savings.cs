@@ -3,35 +3,51 @@
 // Funds and APY can be modified
 // Interest earned within month, year, and lifetime can be displayed
 
-public class Savings {
-    private int currentAmount;
-    private double APY;
+public class Savings
+{
+    private decimal balance;
+    private decimal apy;
+    private int accountAgeMonths;
+    private decimal lifetimeInterestEarned;
 
-    public Savings (int currentAmount, double APY) {
-    
-        if (currentAmount < 0) {
-            throw new ArgumentException("Starting amount cannot be negative", nameof(currentAmount));
-        }
+    public Savings(decimal startingBalance, decimal apy)
+    {
+        if (startingBalance < 0) throw new ArgumentOutOfRangeException(nameof(startingBalance));
+        if (apy < 0) throw new ArgumentOutOfRangeException(nameof(apy));
 
-        if (APY < 0.0) {
-            throw new ArgumentException("Starting APY cannot be negative", nameof(APY));
-        }
-
-        this.currentAmount = currentAmount;
-        this.APY = APY;
+        this.balance = startingBalance;
+        this.apy = apy;
     }
 
-    public void deposit(int amount) { 
-        if (amount < 0) {
-            throw new ArgumentException("Deposit amount cannot be negative", nameof(amount));
-        }
+    public decimal Balance => balance;
+    public decimal APY => apy;
+    public int AccountAgeMonths => accountAgeMonths;
+    public decimal LifetimeInterestEarned => lifetimeInterestEarned;
 
-        this.currentAmount += amount; 
+    public void Deposit(decimal amount)
+    {
+        if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
+        balance += amount;
     }
 
-    public void withdrawal(int amount);
-    public int getAmount() { return this.currentAmount; }
-    public int interestEarnedMonth();
-    public int interestEarnedYear();
-    public int interestEarnedLifetime();
+    public void Withdraw(decimal amount)
+    {
+        if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
+        if (amount > balance) throw new InvalidOperationException("Insufficient funds.");
+        balance -= amount;
+    }
+
+    public decimal InterestEarnedYear() => balance * apy;
+
+    public decimal InterestEarnedMonth()
+        => balance * apy / 12m;
+
+    public decimal ApplyMonthlyInterest()
+    {
+        decimal interest = decimal.Round(InterestEarnedMonth(), 2, MidpointRounding.ToEven);
+        balance += interest;
+        lifetimeInterestEarned += interest;
+        accountAgeMonths++;
+        return interest;
+    }
 }
