@@ -1,4 +1,4 @@
-﻿// Wallet class
+﻿// Wallet.cs
 // Performs calculations for the user's cash wallet
 // Manages user's funds, budget, and transactions
 

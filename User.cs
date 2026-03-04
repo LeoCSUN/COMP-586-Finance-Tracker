@@ -1,4 +1,4 @@
-﻿// User class
+﻿// User.cs
 // Stores user's info
 // Contains Wallet, Savings, and Brokerage class instances
 

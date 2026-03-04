@@ -1,4 +1,4 @@
-// Savings class
+// Savings.cs
 // Stores user's savings funds and current APY value
 // Funds and APY can be modified
 // Interest earned within month, year, and lifetime can be displayed

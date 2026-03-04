@@ -1,3 +1,8 @@
+// Brokerage.cs
+// Stores user's owned stocks
+// Allows user to purchase additional stocks available on the market
+// Displays price changes for specific stocks within different time spans
+
 public class Brokerage {
     private List<Stock> ownedStocks;
     private List<Stock> availableStocks;
