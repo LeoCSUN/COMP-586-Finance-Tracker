@@ -2,6 +2,7 @@
 // Stores user's owned stocks
 // Allows user to purchase additional stocks available on the market
 // Displays price changes for specific stocks within different time spans
+// A stock API will be used to retrieve real-time information about the specific stock
 
 public class Brokerage {
     private List<Stock> ownedStocks;
