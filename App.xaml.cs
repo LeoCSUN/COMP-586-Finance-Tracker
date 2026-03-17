@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace financial_tracker
+namespace finance_tracker_comp586
 {
     public partial class App : Application
     {

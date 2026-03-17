@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="200">
     <Grid Background="White">
-        <TextBlock Name="textPlaceholder" Text="Placeholder Text" FontSize="16" FontWeight="Light" Foreground="DarkGray" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Name="textInput" VerticalContentAlignment="Center" FontSize="16" FontWeight="Light" Background="Transparent" TextChanged="textInput_TextChanged" BorderBrush="Transparent"/>
+        <TextBlock Name="textPlaceholder" Text="{Binding Placeholder}" FontSize="16" FontWeight="Light" Foreground="DarkGray" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Name="textInput" VerticalContentAlignment="Center" FontSize="16" FontWeight="Light" Background="Transparent" TextChanged="textInput_TextChanged" BorderBrush="Transparent" MaxLength="20"/>
         <Button Name="buttonClear" HorizontalAlignment="Right" Width="25" Content="X" Background="Transparent" Foreground="LightGray" BorderThickness="0" Click="buttonClear_Click"/>
     </Grid>
 </UserControl>

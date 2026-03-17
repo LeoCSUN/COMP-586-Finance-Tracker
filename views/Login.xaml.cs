@@ -18,9 +18,15 @@ namespace finance_tracker_comp586.views
     /// </summary>
     public partial class Login : Page
     {
+
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void ClearableTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

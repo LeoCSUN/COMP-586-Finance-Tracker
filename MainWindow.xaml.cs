@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using finance_tracker_comp586.views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,7 @@ namespace finance_tracker_comp586
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Home());
         }
     }
 }

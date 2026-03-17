@@ -22,5 +22,10 @@ namespace finance_tracker_comp586.views
         {
             InitializeComponent();
         }
+
+        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new Home());
+        }
     }
 }

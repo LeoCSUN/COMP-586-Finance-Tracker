@@ -1,65 +1,60 @@
-﻿/*
-
-TO DO:
-- find a way provide api to Brokerage() instance in the User() constructor
-
-*/
-
-using System.Security.Cryptography;
-using System.Text;
-using financial_tracker;
-public class User
+﻿namespace finance_tracker_comp586
 {
-    private string username;
-    private string passwordHash;
-    private string salt;
-    private string name;
-
-    private Wallet walletAccount;
-    private Savings savingsAccount;
-    private Brokerage brokerageAccount;
-
-    public User(string username, string password, string name)
+    using System.Security.Cryptography;
+    using System.Text;
+    public class User
     {
-        this.username = username;
-        this.salt = GenerateSalt();
-        this.passwordHash = HashPassword(password, salt);
+        private string username;
+        private string passwordHash;
+        private string salt;
+        private string name;
 
-        this.name = name;
+        private Wallet walletAccount;
+        private Savings savingsAccount;
+        private Brokerage brokerageAccount;
 
-        this.walletAccount = new Wallet(0m, 0m);
-        this.savingsAccount = new Savings(0m, 0m);
-        this.brokerageAccount = new Brokerage(App.StockApi);
-    }
-
-    private string GenerateSalt()
-    {
-        byte[] saltBytes = new byte[16];
-
-        using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+        public User(string username, string password, string name)
         {
-            rng.GetBytes(saltBytes);
+            this.username = username;
+            this.salt = GenerateSalt();
+            this.passwordHash = HashPassword(password, salt);
+
+            this.name = name;
+
+            this.walletAccount = new Wallet();
+            this.savingsAccount = new Savings();
+            this.brokerageAccount = new Brokerage(App.StockApi);
         }
 
-        return Convert.ToBase64String(saltBytes);
-    }
-
-    private string HashPassword(string password, string salt)
-    {
-        using (SHA256 sha256 = SHA256.Create())
+        private string GenerateSalt()
         {
-            byte[] combinedBytes = Encoding.UTF8.GetBytes(salt + password);
-            byte[] hash = sha256.ComputeHash(combinedBytes);
+            byte[] saltBytes = new byte[16];
 
-            return Convert.ToBase64String(hash);
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(saltBytes);
+            }
+
+            return Convert.ToBase64String(saltBytes);
         }
-    }
 
-    public bool VerifyPassword(string password)
-    {
-        string hashToCheck = HashPassword(password, salt);
-        return hashToCheck == passwordHash;
-    }
+        private string HashPassword(string password, string salt)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] combinedBytes = Encoding.UTF8.GetBytes(salt + password);
+                byte[] hash = sha256.ComputeHash(combinedBytes);
 
-    public string GetUsername() => this.username;
+                return Convert.ToBase64String(hash);
+            }
+        }
+
+        public bool VerifyPassword(string password)
+        {
+            string hashToCheck = HashPassword(password, salt);
+            return hashToCheck == passwordHash;
+        }
+        public string GetUsername() => this.username;
+        public string Name() => this.name;
+    }
 }

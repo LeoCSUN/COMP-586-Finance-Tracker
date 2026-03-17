@@ -1,32 +1,35 @@
-﻿public class UserRepository
+﻿namespace finance_tracker_comp586
 {
-    private List<User> users;
-
-    public User GetUser(string username)
+    public class UserRepository
     {
-        foreach (User u in users)
+        private List<User> users;
+
+        public User GetUser(string username)
         {
-            if (u.GetUsername() == username)
+            foreach (User u in users)
             {
-                return u;
+                if (u.GetUsername() == username)
+                {
+                    return u;
+                }
             }
+
+            return null;
         }
 
-        return null;
-    }
-
-    public void AddUser(User user)
-    {
-        users.Add(user);
-    }
-
-    public void RemoveUser(string username)
-    {
-        foreach (User u in users)
+        public void AddUser(User user)
         {
-            if (u.GetUsername() == username)
+            users.Add(user);
+        }
+
+        public void RemoveUser(string username)
+        {
+            foreach (User u in users)
             {
-                users.Remove(u);
+                if (u.GetUsername() == username)
+                {
+                    users.Remove(u);
+                }
             }
         }
     }

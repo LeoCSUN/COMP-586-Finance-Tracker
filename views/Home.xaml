@@ -6,8 +6,14 @@
       xmlns:local="clr-namespace:finance_tracker_comp586.views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Home"
-      Background="DarkRed">
+      Title="Home">
+
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#9B111E" Offset="0"/>
+            <GradientStop Color="#964B00" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Background>
 
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -24,12 +30,12 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Text="Home" Foreground="White" FontSize="32" Margin="5"/>
-        <TextBlock Grid.Column="2" Text="*insert_username_here*" Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="2" Text="{Binding Name}" Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-            <Button Content="Wallet" Width="150" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White"/>
-            <Button Content="Savings" Width="150" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White"/>
-            <Button Content="Brokerage" Width="150" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White"/>
+            <Button Content="Wallet" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Wallet_Button_Click"/>
+            <Button Content="Savings" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Savings_Button_Click"/>
+            <Button Content="Brokerage" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Brokerage_Button_Click"/>
         </StackPanel>
 
     </Grid>

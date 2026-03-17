@@ -20,7 +20,20 @@ namespace finance_tracker_comp586.views.user_controls
     {
         public ClearableTextBox()
         {
+            DataContext = this;
             InitializeComponent();
+        }
+
+        private string placeholder;
+
+        public string Placeholder
+        {
+            get { return placeholder; }
+            set 
+            {
+                placeholder = value;
+                textPlaceholder.Text = placeholder;
+            }
         }
 
         private void buttonClear_Click(object sender, RoutedEventArgs e)
