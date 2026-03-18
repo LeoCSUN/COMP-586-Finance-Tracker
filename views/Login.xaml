@@ -34,14 +34,14 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Username" Width="75" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
-                <clearableTextBox:ClearableTextBox Height="30" Width="250" Placeholder="username" Loaded="ClearableTextBox_Loaded"/>
+                <clearableTextBox:ClearableTextBox x:Name="UsernameTextBox" Placeholder="Enter username" Height="30" Width="250" IsPassword="False"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Password" Width="75" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
-                <clearableTextBox:ClearableTextBox Height="30" Width="250" Placeholder="password"/>
+                <clearableTextBox:ClearableTextBox x:Name="PasswordTextBox" Placeholder="Enter password" Height="30" Width="250" IsPassword="True"/>
             </StackPanel>
             <Grid>
-                <Button Content="Login" Width="50" Height="25" Margin="5" BorderBrush="Transparent" Background="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="Login" Width="50" Height="25" Margin="5" BorderBrush="Transparent" Background="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Login_Button_Click"/>
             </Grid>
         </StackPanel>
 

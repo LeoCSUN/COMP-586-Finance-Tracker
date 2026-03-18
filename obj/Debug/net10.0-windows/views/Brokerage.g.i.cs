@@ -53,7 +53,7 @@ namespace finance_tracker_comp586.views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/finance_tracker_comp586;V1.0.0.0;component/views/brokerage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/finance_tracker_comp586;component/views/brokerage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\views\Brokerage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

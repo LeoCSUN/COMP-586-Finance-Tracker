@@ -1,13 +1,11 @@
-﻿// Handles storage
-
-using finance_tracker_comp586.services;
+﻿using finance_tracker_comp586.services;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text;
 
 namespace finance_tracker_comp586
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly HttpClient httpClient;
 

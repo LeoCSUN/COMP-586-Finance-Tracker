@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace finance_tracker_comp586.services
+﻿namespace finance_tracker_comp586.services
 {
     public class UserDto
     {

@@ -1,12 +1,14 @@
 ﻿// Handles login/register logic
 
+using finance_tracker_comp586.services;
+
 namespace finance_tracker_comp586
 {
     public class AuthService
     {
-        private UserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
-        public AuthService(UserRepository userRepository)
+        public AuthService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
@@ -31,6 +33,12 @@ namespace finance_tracker_comp586
         public bool Login(string username, string password)
         {
             User user = userRepository.GetUser(username);
+
+            if (user == null)
+            {
+                return false;
+            }
+
             return user.VerifyPassword(password);
         }
     }
