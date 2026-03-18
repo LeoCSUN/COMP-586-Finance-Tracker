@@ -1,4 +1,6 @@
-﻿namespace finance_tracker_comp586
+﻿// Handles login/register logic
+
+namespace finance_tracker_comp586
 {
     public class AuthService
     {

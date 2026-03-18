@@ -1,4 +1,6 @@
-﻿namespace finance_tracker_comp586
+﻿// Handles hashing of user data
+
+namespace finance_tracker_comp586
 {
     using System.Security.Cryptography;
     using System.Text;
@@ -19,6 +21,18 @@
             this.salt = GenerateSalt();
             this.passwordHash = HashPassword(password, salt);
 
+            this.name = name;
+
+            this.walletAccount = new Wallet();
+            this.savingsAccount = new Savings();
+            this.brokerageAccount = new Brokerage(App.StockApi);
+        }
+
+        public User(string username, string passwordHash, string salt, string name)
+        {
+            this.username = username;
+            this.passwordHash = passwordHash;
+            this.salt = salt;
             this.name = name;
 
             this.walletAccount = new Wallet();
@@ -56,5 +70,7 @@
         }
         public string GetUsername() => this.username;
         public string Name() => this.name;
+        public string GetPasswordHash() => this.passwordHash;
+        public string GetSalt() => this.salt;
     }
 }
