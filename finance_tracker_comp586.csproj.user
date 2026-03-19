@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="views\AmountInputWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="views\Brokerage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15,6 +18,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="views\Savings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="views\TransactionInputWIndow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="views\user_controls\ClearableTextBox.xaml.cs">

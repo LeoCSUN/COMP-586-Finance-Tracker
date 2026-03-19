@@ -21,30 +21,57 @@ namespace finance_tracker_comp586.views
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Pop open an entry box with confirm + cancel buttons on the side
-            // Take contents of entry box, making sure confirm button is only selectable when amount is over 0.00
-            // Add entered amount to Wallet.currentAmount
+            var amountWindow = new AmountInputWindow();
+            amountWindow.Owner = Window.GetWindow(this);
+            bool? result = amountWindow.ShowDialog();
+
+            if (result == true)
+            {
+                decimal enteredAmount = amountWindow.EnteredAmount;
+                wallet.Deposit(enteredAmount);
+            }
         }
 
         private void Subtract_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Pop open an entry box with confirm + cancel buttons on the side
-            // Take contents of entry box, making sure confirm button is only selectable when amount is over 0.00
-            // Subtract entered amount from Wallet.currentAmount
+            var amountWindow = new AmountInputWindow();
+            amountWindow.Owner = Window.GetWindow(this);
+            bool? result = amountWindow.ShowDialog();
+
+            if (result == true)
+            {
+                decimal enteredAmount = amountWindow.EnteredAmount;
+                wallet.Withdraw(enteredAmount);
+            }
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Pop open an entry box with confirm + cancel buttons on the side
-            // Take contents of entry box, making sure confirm button is only selectable when amount is over 0.00
-            // Set Wallet.monthlyBudget to whatever was entered
+            var amountWindow = new AmountInputWindow();
+            amountWindow.Owner = Window.GetWindow(this);
+            bool? result = amountWindow.ShowDialog();
+
+            if (result == true)
+            {
+                decimal enteredAmount = amountWindow.EnteredAmount;
+                wallet.SetBudget(enteredAmount);
+            }
         }
 
         private void Add_Transaction_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Pop open a new window
-            // Ask user to input following info: date, description, amount
-            // Create new Transaction instance with that input and add it to Wallet.transactions
+            var transactionWindow = new TransactionInputWindow();
+            transactionWindow.Owner = Window.GetWindow(this);
+            bool? result = transactionWindow.ShowDialog();
+
+            if (result == true)
+            {
+                DateTime date = transactionWindow.TransactionDate;
+                string description = transactionWindow.Description;
+                decimal amount = transactionWindow.EnteredAmount;
+                TransactionCategory category = transactionWindow.Category;
+                wallet.AddTransaction(date, description, amount, category);
+            }
         }
     }
 }

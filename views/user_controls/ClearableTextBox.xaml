@@ -21,7 +21,7 @@
                  FontSize="16"
                  FontWeight="Light"
                  Background="Transparent"
-                 BorderBrush="Transparent"
+                 BorderBrush="LightGray"
                  MaxLength="50"/>
 
         <!-- PasswordBox -->

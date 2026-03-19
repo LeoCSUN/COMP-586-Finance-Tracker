@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NET10_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\App.xaml
-8-938975354
+10552114141
 
-231870338401
+25-377869366
 206-796764840
-MainWindow.xaml;views\Brokerage.xaml;views\Home.xaml;views\Login.xaml;views\Register.xaml;views\Savings.xaml;views\user_controls\ClearableTextBox.xaml;views\Wallet.xaml;
+MainWindow.xaml;views\AmountInputWindow.xaml;views\Brokerage.xaml;views\Home.xaml;views\Login.xaml;views\Register.xaml;views\Savings.xaml;views\TransactionInputWIndow.xaml;views\user_controls\ClearableTextBox.xaml;views\Wallet.xaml;
 
-True
+False
 

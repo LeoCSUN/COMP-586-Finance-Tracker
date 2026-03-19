@@ -3,7 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:finance_tracker_comp586.views" mc:Ignorable="d" d:DesignHeight="750" d:DesignWidth="1000" Title="Wallet">
+	xmlns:local="clr-namespace:finance_tracker_comp586.views" mc:Ignorable="d" d:DesignHeight="750" d:DesignWidth="1000" Title="Wallet"
+      xmlns:clearableTextBox="clr-namespace:finance_tracker_comp586.views.user_controls">
     <!-- Resources -->
     <Page.Resources>
         <!-- Colors -->
@@ -62,7 +63,7 @@
             <StackPanel Orientation="Vertical">
                 <Grid>
                     <TextBlock Text="Current Amount" FontSize="16"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel x:Name="AddSubtractButtonPanel" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Content="+" Style="{StaticResource RedButtonStyle}" Click="Add_Button_Click"/>
                         <Button Content="-" Style="{StaticResource RedButtonStyle}" Click="Subtract_Button_Click"/>
                     </StackPanel>
@@ -111,7 +112,7 @@
                             <GridViewColumn Header="Date" DisplayMemberBinding="{Binding TransactionDate}"/>
                             <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}"/>
                             <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
-                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding TransactionCategory}"/>
+                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
