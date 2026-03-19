@@ -38,16 +38,43 @@
             monthlyBudget = budget;
         }
 
-        public void AddTransaction(DateTime date, string description, decimal amount)
+        public void AddTransaction(DateTime date, string description, decimal amount, TransactionCategory category)
         {
             if (string.IsNullOrWhiteSpace(description))
+            {
                 throw new ArgumentException("Description is required.", nameof(description));
+            }
 
-            transactions.Add(new Transaction(date, description, amount));
+            transactions.Add(new Transaction(date, description, amount, category));
             currentAmount -= amount;
             amountSpentMonth += amount;
         }
     }
 
-    public record Transaction(DateTime TransactionDate, string Description, decimal Amount);
+    public class Transaction
+    {
+        public DateTime TransactionDate { get; set; }
+        public string Description { get; set; }
+        public decimal Amount { get; set; }
+        public TransactionCategory Category {get; set;}
+
+        public Transaction(DateTime transactionDate, string description, decimal amount, TransactionCategory category)
+        {
+            TransactionDate = transactionDate;
+            Description = description;
+            Amount = amount;
+            Category = category;
+        }
+    }
+
+    public enum TransactionCategory
+    {
+        Food,
+        Utilities,
+        Rent,
+        Transportaion,
+        Entertainment,
+        Income,
+        Other
+    }
 }

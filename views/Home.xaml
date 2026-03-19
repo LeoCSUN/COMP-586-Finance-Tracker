@@ -1,42 +1,62 @@
 ﻿<Page x:Class="finance_tracker_comp586.views.Home"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:finance_tracker_comp586.views"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:finance_tracker_comp586.views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="750" d:DesignWidth="1000"
       Title="Home">
-
-    <Page.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+    <!-- Resources -->
+    <Page.Resources>
+        <!-- Colors -->
+        <SolidColorBrush x:Key="PrimaryRed" Color="DarkRed"/>
+        <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
+        <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
+        <!-- Button Style -->
+        <Style x:Key="WhiteButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryWhite}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <!-- Gradient Background -->
+        <LinearGradientBrush x:Key="HomeBackground" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#9B111E" Offset="0"/>
             <GradientStop Color="#964B00" Offset="1"/>
         </LinearGradientBrush>
+    </Page.Resources>
+    <!-- Page Background -->
+    <Page.Background>
+        <StaticResource ResourceKey="HomeBackground"/>
     </Page.Background>
-
-    <Grid Margin="5">
+    <!-- Main Grid -->
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Spacer -->
+            <RowDefinition Height="*"/>
+            <!-- Buttons -->
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Row="0" Text="Home" Foreground="White" FontSize="32" Margin="5"/>
-        <TextBlock Grid.Column="2" Text="{Binding Name}" Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-            <Button Content="Wallet" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Wallet_Button_Click"/>
-            <Button Content="Savings" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Savings_Button_Click"/>
-            <Button Content="Brokerage" Width="100" Height="25" Margin="5" BorderBrush="Transparent" Foreground="Black" Background="White" Click="Brokerage_Button_Click"/>
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Home" Foreground="{StaticResource PrimaryWhite}" FontSize="32" Margin="5" HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}" Foreground="{StaticResource PrimaryWhite}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Navigation Buttons -->
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Wallet" Style="{StaticResource WhiteButtonStyle}" Click="Wallet_Button_Click"/>
+            <Button Content="Savings" Style="{StaticResource WhiteButtonStyle}" Click="Savings_Button_Click"/>
+            <Button Content="Brokerage" Style="{StaticResource WhiteButtonStyle}" Click="Brokerage_Button_Click"/>
         </StackPanel>
-
     </Grid>
 </Page>

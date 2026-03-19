@@ -8,7 +8,7 @@ namespace finance_tracker_comp586
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Login());
+            MainFrame.Navigate(new Home());
         }
     }
 }

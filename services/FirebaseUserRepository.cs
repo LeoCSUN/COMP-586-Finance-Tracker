@@ -30,12 +30,13 @@ namespace finance_tracker_comp586.services
 
             var fields = doc.RootElement.GetProperty("fields");
 
-            string uname = fields.GetProperty("username").GetProperty("stringValue").GetString();
+            string _username = fields.GetProperty("username").GetProperty("stringValue").GetString();
             string hash = fields.GetProperty("passwordHash").GetProperty("stringValue").GetString();
             string salt = fields.GetProperty("salt").GetProperty("stringValue").GetString();
-            string name = fields.GetProperty("name").GetProperty("stringValue").GetString();
+            string firstName = fields.GetProperty("firstName").GetProperty("stringValue").GetString();
+            string lastName = fields.GetProperty("lastName").GetProperty("stringValue").GetString();
 
-            return new User(uname, hash, salt, name);
+            return new User(_username, hash, salt, firstName, lastName);
         }
         public void AddUser(User user)
         {
@@ -44,7 +45,8 @@ namespace finance_tracker_comp586.services
                 Username = user.GetUsername(),
                 PasswordHash = user.GetPasswordHash(),
                 Salt = user.GetSalt(),
-                Name = user.Name()
+                FirstName = user.FirstName(),
+                LastName = user.LastName()
             };
 
             string json = JsonSerializer.Serialize(new
@@ -54,7 +56,8 @@ namespace finance_tracker_comp586.services
                     username = new { stringValue = dto.Username },
                     passwordHash = new { stringValue = dto.PasswordHash },
                     salt = new { stringValue = dto.Salt },
-                    name = new { stringValue = dto.Name }
+                    firstName = new { stringValue = dto.FirstName },
+                    LastName = new { stringValue = dto.LastName }
                 }
             });
 

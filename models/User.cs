@@ -9,31 +9,34 @@ namespace finance_tracker_comp586
         private string username;
         private string passwordHash;
         private string salt;
-        private string name;
+        private string firstName;
+        private string lastName;
 
         private Wallet walletAccount;
         private Savings savingsAccount;
         private Brokerage brokerageAccount;
 
-        public User(string username, string password, string name)
+        public User(string username, string password, string firstName, string lastName)
         {
             this.username = username;
             this.salt = GenerateSalt();
             this.passwordHash = HashPassword(password, salt);
 
-            this.name = name;
+            this.firstName = firstName;
+            this.lastName = lastName;
 
             this.walletAccount = new Wallet();
             this.savingsAccount = new Savings();
             this.brokerageAccount = new Brokerage(App.StockApi);
         }
 
-        public User(string username, string passwordHash, string salt, string name)
+        public User(string username, string passwordHash, string salt, string firstName, string lastName)
         {
             this.username = username;
             this.passwordHash = passwordHash;
             this.salt = salt;
-            this.name = name;
+            this.firstName = firstName;
+            this.lastName = lastName;
 
             this.walletAccount = new Wallet();
             this.savingsAccount = new Savings();
@@ -69,7 +72,8 @@ namespace finance_tracker_comp586
             return hashToCheck == passwordHash;
         }
         public string GetUsername() => this.username;
-        public string Name() => this.name;
+        public string FirstName() => this.firstName;
+        public string LastName() => this.lastName;
         public string GetPasswordHash() => this.passwordHash;
         public string GetSalt() => this.salt;
     }

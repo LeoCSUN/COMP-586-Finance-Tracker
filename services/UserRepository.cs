@@ -26,7 +26,7 @@ namespace finance_tracker_comp586
             string json = response.Content.ReadAsStringAsync().Result;
             var dto = JsonSerializer.Deserialize<UserDto>(json);
 
-            return new User(dto.Username, dto.PasswordHash, dto.Salt, dto.Name);
+            return new User(dto.Username, dto.PasswordHash, dto.Salt, dto.FirstName, dto.LastName);
         }
 
         public void AddUser(User user)
@@ -36,7 +36,8 @@ namespace finance_tracker_comp586
                 Username = user.GetUsername(),
                 PasswordHash = user.GetPasswordHash(),
                 Salt = user.GetSalt(),
-                Name = user.Name()
+                FirstName = user.FirstName(),
+                LastName = user.LastName()
             };
 
             string json = JsonSerializer.Serialize(dto);

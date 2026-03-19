@@ -13,7 +13,7 @@ namespace finance_tracker_comp586
             this.userRepository = userRepository;
         }
 
-        public User Register(string username, string password, string name)
+        public User Register(string username, string password, string firstName, string lastName)
         {
             if (userRepository.GetUser(username) != null)
             {
@@ -25,7 +25,7 @@ namespace finance_tracker_comp586
                 throw new InvalidOperationException("Username and password cannot be the same.");
             }
 
-            User user = new User(username, password, name);
+            User user = new User(username, password, firstName, lastName);
             userRepository.AddUser(user);
             return user;
         }

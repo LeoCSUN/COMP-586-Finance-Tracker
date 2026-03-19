@@ -14,11 +14,6 @@ namespace finance_tracker_comp586.views
             _authService = App.Auth;
         }
 
-        private void ClearableTextBox_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
@@ -32,8 +27,13 @@ namespace finance_tracker_comp586.views
             }
             else
             {
-                PasswordTextBox.Text = "";
+                // Throw an error of some kind
             }
+        }
+
+        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Register());
         }
     }
 }
