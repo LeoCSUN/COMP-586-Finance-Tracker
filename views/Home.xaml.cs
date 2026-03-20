@@ -5,11 +5,9 @@ namespace finance_tracker_comp586.views
 {
     public partial class Home : Page
     {
-        private finance_tracker_comp586.User user;
         public Home()
         {
             InitializeComponent();
-            DataContext = user;
         }
 
         private void Wallet_Button_Click(object sender, RoutedEventArgs e)

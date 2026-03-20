@@ -15,7 +15,7 @@ namespace finance_tracker_comp586.views
     public partial class TransactionInputWindow : Window
     {
         public DateTime TransactionDate { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         public decimal EnteredAmount { get; set; }
         public TransactionCategory Category { get; set; }
 
@@ -28,9 +28,28 @@ namespace finance_tracker_comp586.views
         {
             try
             {
-                int month = DateTime.ParseExact(((ComboBoxItem)MonthComboBox.SelectedItem).Content.ToString(), "MMMM", System.Globalization.CultureInfo.InvariantCulture).Month;
-                int day = int.Parse(((ComboBoxItem)DayComboBox.SelectedItem).Content.ToString());
-                int year = int.Parse(((ComboBoxItem)YearComboBox.SelectedItem).Content.ToString());
+                if (MonthComboBox.SelectedItem is not ComboBoxItem monthItem
+                    || DayComboBox.SelectedItem is not ComboBoxItem dayItem
+                    || YearComboBox.SelectedItem is not ComboBoxItem yearItem)
+                {
+                    MessageBox.Show("Select month, day, and year.");
+                    return;
+                }
+
+                string? monthName = monthItem.Content?.ToString();
+                string? dayText = dayItem.Content?.ToString();
+                string? yearText = yearItem.Content?.ToString();
+
+                if (string.IsNullOrWhiteSpace(monthName)
+                    || !DateTime.TryParseExact(monthName, "MMMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime monthParsed)
+                    || !int.TryParse(dayText, out int day)
+                    || !int.TryParse(yearText, out int year))
+                {
+                    MessageBox.Show("Invalid date.");
+                    return;
+                }
+
+                int month = monthParsed.Month;
 
                 if (!DateTime.TryParse($"{month}/{day}/{year}", out DateTime date))
                 {
@@ -50,7 +69,19 @@ namespace finance_tracker_comp586.views
 
                 EnteredAmount = amount;
 
-                string selectedCategory = ((ComboBoxItem)CategoryComboBox.SelectedItem).Content.ToString();
+                if (CategoryComboBox.SelectedItem is not ComboBoxItem categoryItem)
+                {
+                    MessageBox.Show("Select a category.");
+                    return;
+                }
+
+                string? selectedCategory = categoryItem.Content?.ToString();
+
+                if (string.IsNullOrWhiteSpace(selectedCategory))
+                {
+                    MessageBox.Show("Invalid category.");
+                    return;
+                }
 
                 if (!Enum.TryParse(selectedCategory, out TransactionCategory category))
                 {

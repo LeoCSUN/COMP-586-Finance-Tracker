@@ -14,7 +14,7 @@ namespace finance_tracker_comp586.services
             _httpClient = new HttpClient();
             _projectId = projectId;
         }
-        public User GetUser(string username)
+        public User? GetUser(string username)
         {
             string url = $"https://firestore.googleapis.com/v1/projects/{_projectId}/databases/(default)/documents/users/{username}";
 
@@ -30,11 +30,20 @@ namespace finance_tracker_comp586.services
 
             var fields = doc.RootElement.GetProperty("fields");
 
-            string _username = fields.GetProperty("username").GetProperty("stringValue").GetString();
-            string hash = fields.GetProperty("passwordHash").GetProperty("stringValue").GetString();
-            string salt = fields.GetProperty("salt").GetProperty("stringValue").GetString();
-            string firstName = fields.GetProperty("firstName").GetProperty("stringValue").GetString();
-            string lastName = fields.GetProperty("lastName").GetProperty("stringValue").GetString();
+            string? _username = fields.GetProperty("username").GetProperty("stringValue").GetString();
+            string? hash = fields.GetProperty("passwordHash").GetProperty("stringValue").GetString();
+            string? salt = fields.GetProperty("salt").GetProperty("stringValue").GetString();
+            string? firstName = fields.GetProperty("firstName").GetProperty("stringValue").GetString();
+            string? lastName = fields.GetProperty("lastName").GetProperty("stringValue").GetString();
+
+            if (string.IsNullOrWhiteSpace(_username)
+                || string.IsNullOrWhiteSpace(hash)
+                || string.IsNullOrWhiteSpace(salt)
+                || string.IsNullOrWhiteSpace(firstName)
+                || string.IsNullOrWhiteSpace(lastName))
+            {
+                return null;
+            }
 
             return new User(_username, hash, salt, firstName, lastName);
         }

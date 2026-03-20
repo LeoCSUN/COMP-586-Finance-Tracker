@@ -1,5 +1,10 @@
-﻿using System.Windows;
+﻿using finance_tracker_comp586.models;
+using LiveChartsCore.SkiaSharpView.WPF;
+using System.Windows;
 using System.Windows.Controls;
+using LiveChartsCore;                  // for ISeries
+using LiveChartsCore.Drawing;          // for SolidColorPaint
+using SkiaSharp;                        // for SKColor
 
 namespace finance_tracker_comp586.views
 {
@@ -12,6 +17,20 @@ namespace finance_tracker_comp586.views
 
             wallet = new finance_tracker_comp586.Wallet();
             DataContext = wallet;
+
+            RefreshChart();
+        }
+
+        private void RefreshChart()
+        {
+            PieChartContainer.Children.Clear();
+
+            var pieChart = new LiveChartsCore.SkiaSharpView.WPF.PieChart
+            {
+                Series = ChartHelper.GetPieSeries(wallet)
+            };
+
+            PieChartContainer.Children.Add(pieChart);
         }
 
         private void Home_Button_Click(object sender, RoutedEventArgs e)
@@ -71,6 +90,7 @@ namespace finance_tracker_comp586.views
                 decimal amount = transactionWindow.EnteredAmount;
                 TransactionCategory category = transactionWindow.Category;
                 wallet.AddTransaction(date, description, amount, category);
+                RefreshChart();
             }
         }
     }

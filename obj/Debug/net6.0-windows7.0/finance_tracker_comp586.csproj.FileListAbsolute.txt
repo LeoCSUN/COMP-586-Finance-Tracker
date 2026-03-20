@@ -1,0 +1,16 @@
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\finance_tracker_comp586.csproj.AssemblyReference.cache
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\user_controls\ClearableTextBox.baml
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\MainWindow.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\AmountInputWindow.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Brokerage.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Home.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Login.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Register.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Savings.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\TransactionInputWIndow.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\user_controls\ClearableTextBox.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\views\Wallet.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\App.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\GeneratedInternalTypeHelper.g.cs
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\finance_tracker_comp586_MarkupCompile.cache
+C:\Users\Leo\Desktop\finance_tracker_comp586\finance_tracker_comp586\obj\Debug\net6.0-windows7.0\finance_tracker_comp586_MarkupCompile.lref

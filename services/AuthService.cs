@@ -32,7 +32,7 @@ namespace finance_tracker_comp586
 
         public bool Login(string username, string password)
         {
-            User user = userRepository.GetUser(username);
+            User? user = userRepository.GetUser(username);
 
             if (user == null)
             {

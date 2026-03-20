@@ -31,7 +31,7 @@ namespace finance_tracker_comp586.views
             {
                 MessageBox.Show(exception.Message);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 MessageBox.Show("Something went wrong. Please try again.");
             }

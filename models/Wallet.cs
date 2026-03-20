@@ -1,11 +1,15 @@
-﻿namespace finance_tracker_comp586
+﻿using finance_tracker_comp586.models;
+using LiveChartsCore.SkiaSharpView.WPF;
+using System.Collections.ObjectModel;
+
+namespace finance_tracker_comp586
 {   
     public class Wallet
     {
         private decimal currentAmount;
         private decimal monthlyBudget;
         private decimal amountSpentMonth;
-        private readonly List<Transaction> transactions = new();
+        private readonly ObservableCollection<Transaction> transactions = new();
 
         public Wallet()
         {

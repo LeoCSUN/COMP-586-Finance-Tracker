@@ -9,6 +9,7 @@ namespace finance_tracker_comp586.views
         public Savings()
         {
             InitializeComponent();
+            savings = new finance_tracker_comp586.Savings();
             DataContext = savings;
         }
 

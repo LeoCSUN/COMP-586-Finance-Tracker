@@ -14,7 +14,7 @@ namespace finance_tracker_comp586
             httpClient = new HttpClient();
         }
 
-        public User GetUser(string username)
+        public User? GetUser(string username)
         {
             var response = httpClient.GetAsync($"https://your-api.com/users/{username}").Result;
 
@@ -25,6 +25,11 @@ namespace finance_tracker_comp586
 
             string json = response.Content.ReadAsStringAsync().Result;
             var dto = JsonSerializer.Deserialize<UserDto>(json);
+
+            if (dto == null)
+            {
+                return null;
+            }
 
             return new User(dto.Username, dto.PasswordHash, dto.Salt, dto.FirstName, dto.LastName);
         }
