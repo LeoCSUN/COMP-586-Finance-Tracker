@@ -1,0 +1,141 @@
+﻿<Window x:Class="finance_tracker_comp586.views.TransactionInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:clearableTextBox="clr-namespace:finance_tracker_comp586.views.user_controls"
+        Title="Transaction"
+        Height="420"
+        Width="450"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryRed" Color="DarkRed"/>
+        <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
+        <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
+
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryWhite}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryRed}"/>
+        </Style>
+
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#9B111E" Offset="0"/>
+            <GradientStop Color="#964B00" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Window.Background>
+        <StaticResource ResourceKey="BackgroundGradient"/>
+    </Window.Background>
+
+    <Grid>
+        <Border Background="{StaticResource PrimaryWhite}"
+                CornerRadius="8"
+                Padding="20"
+                Width="400"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                <TextBlock Text="Enter Transaction Details"
+                           FontSize="16"
+                           Margin="0,0,0,15"
+                           HorizontalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+                    <TextBlock Text="Category:" Width="90" VerticalAlignment="Center" FontSize="14"/>
+                    <ComboBox x:Name="CategoryComboBox" Width="250" SelectedIndex="0">
+                        <ComboBoxItem Content="Food"/>
+                        <ComboBoxItem Content="Utilities"/>
+                        <ComboBoxItem Content="Rent"/>
+                        <ComboBoxItem Content="Transportation"/>
+                        <ComboBoxItem Content="Entertainment"/>
+                        <ComboBoxItem Content="Income"/>
+                        <ComboBoxItem Content="Other"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+                    <TextBlock Text="Date:" Width="90" VerticalAlignment="Center" FontSize="14"/>
+                    <ComboBox x:Name="MonthComboBox" Width="100" SelectedIndex="0" Margin="0,0,5,0">
+                        <ComboBoxItem Content="January"/>
+                        <ComboBoxItem Content="February"/>
+                        <ComboBoxItem Content="March"/>
+                        <ComboBoxItem Content="April"/>
+                        <ComboBoxItem Content="May"/>
+                        <ComboBoxItem Content="June"/>
+                        <ComboBoxItem Content="July"/>
+                        <ComboBoxItem Content="August"/>
+                        <ComboBoxItem Content="September"/>
+                        <ComboBoxItem Content="October"/>
+                        <ComboBoxItem Content="November"/>
+                        <ComboBoxItem Content="December"/>
+                    </ComboBox>
+                    <ComboBox x:Name="DayComboBox" Width="60" SelectedIndex="0" Margin="0,0,5,0">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="23"/>
+                        <ComboBoxItem Content="24"/>
+                        <ComboBoxItem Content="25"/>
+                        <ComboBoxItem Content="26"/>
+                        <ComboBoxItem Content="27"/>
+                        <ComboBoxItem Content="28"/>
+                        <ComboBoxItem Content="29"/>
+                        <ComboBoxItem Content="30"/>
+                        <ComboBoxItem Content="31"/>
+                    </ComboBox>
+                    <ComboBox x:Name="YearComboBox" Width="80" SelectedIndex="0">
+                        <ComboBoxItem Content="2020"/>
+                        <ComboBoxItem Content="2021"/>
+                        <ComboBoxItem Content="2022"/>
+                        <ComboBoxItem Content="2023"/>
+                        <ComboBoxItem Content="2024"/>
+                        <ComboBoxItem Content="2025"/>
+                        <ComboBoxItem Content="2026"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+                    <TextBlock Text="Amount:" Width="90" VerticalAlignment="Center" FontSize="14"/>
+                    <clearableTextBox:ClearableTextBox x:Name="AmountInputBox" Width="250" Placeholder="Enter amount"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15" HorizontalAlignment="Left">
+                    <TextBlock Text="Description:" Width="90" VerticalAlignment="Center" FontSize="14"/>
+                    <clearableTextBox:ClearableTextBox x:Name="DescriptionInputBox" Width="250" Placeholder="Enter description"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Confirm" Style="{StaticResource RedButtonStyle}" Margin="5" Click="Confirm_Button_Click"/>
+                    <Button Content="Cancel" Style="{StaticResource RedButtonStyle}" Margin="5" Click="Cancel_Button_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
