@@ -84,5 +84,29 @@
             double percentReturn = (double)((latestPrice - oldPrice) / oldPrice * 100m);
             return percentReturn;
         }
+
+        public async Task<string> GetStockSectorAsync(string symbol)
+        {
+            string url = $"https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={apiKey}";
+
+            try
+            {
+                string json = await httpClient.GetStringAsync(url);
+                using JsonDocument doc = JsonDocument.Parse(json);
+
+                // Alpha Vantage returns an empty JSON object {} if the symbol isn't found 
+                // or if you've hit your API limit.
+                if (doc.RootElement.TryGetProperty("Sector", out JsonElement sectorElement))
+                {
+                    return sectorElement.GetString() ?? "Other";
+                }
+
+                return "Unknown";
+            }
+            catch (Exception)
+            {
+                return "Other";
+            }
+        }
     }
 }

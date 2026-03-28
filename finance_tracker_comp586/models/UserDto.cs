@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace finance_tracker_comp586.services
+namespace finance_tracker_comp586.models
 {
     public class UserDto
     {

@@ -1,57 +1,104 @@
-﻿using finance_tracker_comp586.models;
-using LiveChartsCore.SkiaSharpView.WPF;
+﻿using finance_tracker_comp586.utils;
+using LiveChartsCore;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace finance_tracker_comp586
 {
-    public class Wallet
+    public class Wallet : INotifyPropertyChanged
     {
-        private decimal currentAmount;
-        private decimal monthlyBudget;
-        private decimal amountSpentMonth;
-        private readonly ObservableCollection<Transaction> transactions = new();
+        private decimal _currentAmount;
+        private decimal _monthlyBudget;
+        private decimal _amountSpentMonth;
+        private ISeries[] _spendingSeries = Array.Empty<ISeries>();
+        private readonly ObservableCollection<Transaction> _transactions = new();
 
         public Wallet()
         {
-            this.currentAmount = 0m;
-            this.monthlyBudget = 0m;
-            this.amountSpentMonth = 0m;
+            _currentAmount = 0m;
+            _monthlyBudget = 0m;
+            _amountSpentMonth = 0m;
         }
 
-        public decimal CurrentAmount => currentAmount;
-        public decimal MonthlyBudget => monthlyBudget;
-        public decimal AmountSpentMonth => amountSpentMonth;
-        public IReadOnlyList<Transaction> Transactions => transactions;
+        // Properties with OnPropertyChanged() to notify the UI
+        public decimal CurrentAmount
+        {
+            get => _currentAmount;
+            private set { _currentAmount = value; OnPropertyChanged(); }
+        }
+
+        public decimal MonthlyBudget
+        {
+            get => _monthlyBudget;
+            private set { _monthlyBudget = value; OnPropertyChanged(); }
+        }
+
+        public decimal AmountSpentMonth
+        {
+            get => _amountSpentMonth;
+            private set { _amountSpentMonth = value; OnPropertyChanged(); }
+        }
+
+        public ISeries[] SpendingSeries
+        {
+            get => _spendingSeries;
+            private set { _spendingSeries = value; OnPropertyChanged(); }
+        }
+
+        public ObservableCollection<Transaction> Transactions => _transactions;
 
         public void Deposit(decimal amount)
         {
             if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
-            currentAmount += amount;
+            CurrentAmount += amount;
         }
 
         public void Withdraw(decimal amount)
         {
             if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
-            if (amount > currentAmount) throw new InvalidOperationException("Insufficient funds.");
-            currentAmount -= amount;
+            if (amount > _currentAmount) throw new InvalidOperationException("Insufficient funds.");
+            CurrentAmount -= amount;
         }
 
         public void SetBudget(decimal budget)
         {
             if (budget < 0) throw new ArgumentOutOfRangeException(nameof(budget));
-            monthlyBudget = budget;
+            MonthlyBudget = budget;
         }
 
         public void AddTransaction(DateTime date, string description, decimal amount, TransactionCategory category)
         {
             if (string.IsNullOrWhiteSpace(description))
-            {
                 throw new ArgumentException("Description is required.", nameof(description));
+
+            _transactions.Add(new Transaction(date, description, amount, category));
+
+            // Logic: Income adds to balance, everything else subtracts and adds to spending
+            if (category == TransactionCategory.Income)
+            {
+                CurrentAmount += amount;
+            }
+            else
+            {
+                CurrentAmount -= amount;
+                AmountSpentMonth += amount;
             }
 
-            transactions.Add(new Transaction(date, description, amount, category));
-            currentAmount -= amount;
-            amountSpentMonth += amount;
+            UpdateChartData();
+        }
+
+        public void UpdateChartData()
+        {
+            SpendingSeries = ChartHelper.GetPieSeries(this);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 
@@ -73,12 +120,6 @@ namespace finance_tracker_comp586
 
     public enum TransactionCategory
     {
-        Food,
-        Utilities,
-        Rent,
-        Transportaion,
-        Entertainment,
-        Income,
-        Other
+        Food, Utilities, Rent, Transportaion, Entertainment, Income, Other
     }
 }

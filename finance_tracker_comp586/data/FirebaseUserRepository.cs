@@ -3,7 +3,9 @@ using System.Text;
 using System.Text.Json;
 using System.Globalization;
 
-namespace finance_tracker_comp586.services
+using finance_tracker_comp586.models;
+
+namespace finance_tracker_comp586.data
 {
     class FirebaseUserRepository : IUserRepository
     {

@@ -1,13 +1,11 @@
 ﻿using LiveChartsCore;
-using LiveChartsCore.Drawing;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.WPF;
 using SkiaSharp;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace finance_tracker_comp586.models
+namespace finance_tracker_comp586.utils
 {
     public static class ChartHelper
     {
@@ -19,16 +17,17 @@ namespace finance_tracker_comp586.models
                 .Select(g => new { Category = g.Key.ToString(), Amount = (double)g.Sum(t => t.Amount) })
                 .ToList();
 
-            var series = totals.Select(t => new PieSeries<double>
+            return totals.Select(t => new PieSeries<double>
             {
                 Values = new double[] { t.Amount },
                 Name = t.Category,
                 DataLabelsPaint = new SolidColorPaint(SKColors.Black),
-                DataLabelsSize = 16,
-                DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle
-            }).ToArray();
+                DataLabelsSize = 14,
+                DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
 
-            return series;
+                // FIX: Use .Coordinate.PrimaryValue instead of .PrimaryValue
+                DataLabelsFormatter = point => $"${point.Coordinate.PrimaryValue:N2}"
+            }).ToArray();
         }
     }
 }

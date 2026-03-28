@@ -1,4 +1,4 @@
-﻿namespace finance_tracker_comp586.services
+﻿namespace finance_tracker_comp586.data
 {
     public interface IUserRepository
     {

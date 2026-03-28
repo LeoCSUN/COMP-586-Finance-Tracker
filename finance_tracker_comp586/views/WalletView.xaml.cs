@@ -1,36 +1,27 @@
 ﻿using finance_tracker_comp586.models;
-using LiveChartsCore.SkiaSharpView.WPF;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using LiveChartsCore;
-using LiveChartsCore.Drawing;
-using SkiaSharp;
 
 namespace finance_tracker_comp586.views
 {
     public partial class WalletView : Page
     {
-        private finance_tracker_comp586.Wallet wallet;
+        private Wallet _wallet;
+
         public WalletView()
         {
             InitializeComponent();
 
-            wallet = App.CurrentUser!.GetWallet();
-            DataContext = wallet;
+            // Load the current user's wallet
+            _wallet = App.CurrentUser!.GetWallet();
 
-            RefreshChart();
-        }
+            // Initial calculation of the chart data based on existing transactions
+            _wallet.UpdateChartData();
 
-        private void RefreshChart()
-        {
-            PieChartContainer.Children.Clear();
-
-            var pieChart = new LiveChartsCore.SkiaSharpView.WPF.PieChart
-            {
-                Series = ChartHelper.GetPieSeries(wallet)
-            };
-
-            PieChartContainer.Children.Add(pieChart);
+            // Set the DataContext so the XAML {Binding} properties 
+            // (CurrentAmount, Transactions, SpendingSeries) connect to the model.
+            this.DataContext = _wallet;
         }
 
         private void Home_Button_Click(object sender, RoutedEventArgs e)
@@ -40,57 +31,58 @@ namespace finance_tracker_comp586.views
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            var amountWindow = new AmountInputWindow();
-            amountWindow.Owner = Window.GetWindow(this);
-            bool? result = amountWindow.ShowDialog();
-
-            if (result == true)
+            var amountWindow = new AmountInputWindow { Owner = Window.GetWindow(this) };
+            if (amountWindow.ShowDialog() == true)
             {
-                decimal enteredAmount = amountWindow.EnteredAmount;
-                wallet.Deposit(enteredAmount);
+                _wallet.Deposit(amountWindow.EnteredAmount);
+                // Note: Balance changes don't usually change the pie chart unless logic dictates,
+                // but we call this to ensure the UI is fully synced.
+                _wallet.UpdateChartData();
             }
         }
 
         private void Subtract_Button_Click(object sender, RoutedEventArgs e)
         {
-            var amountWindow = new AmountInputWindow();
-            amountWindow.Owner = Window.GetWindow(this);
-            bool? result = amountWindow.ShowDialog();
-
-            if (result == true)
+            var amountWindow = new AmountInputWindow { Owner = Window.GetWindow(this) };
+            if (amountWindow.ShowDialog() == true)
             {
-                decimal enteredAmount = amountWindow.EnteredAmount;
-                wallet.Withdraw(enteredAmount);
+                try
+                {
+                    _wallet.Withdraw(amountWindow.EnteredAmount);
+                    _wallet.UpdateChartData();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            var amountWindow = new AmountInputWindow();
-            amountWindow.Owner = Window.GetWindow(this);
-            bool? result = amountWindow.ShowDialog();
-
-            if (result == true)
+            var amountWindow = new AmountInputWindow { Owner = Window.GetWindow(this) };
+            if (amountWindow.ShowDialog() == true)
             {
-                decimal enteredAmount = amountWindow.EnteredAmount;
-                wallet.SetBudget(enteredAmount);
+                _wallet.SetBudget(amountWindow.EnteredAmount);
             }
         }
 
         private void Add_Transaction_Button_Click(object sender, RoutedEventArgs e)
         {
-            var transactionWindow = new TransactionInputWindow();
-            transactionWindow.Owner = Window.GetWindow(this);
-            bool? result = transactionWindow.ShowDialog();
-
-            if (result == true)
+            var transactionWindow = new TransactionInputWindow { Owner = Window.GetWindow(this) };
+            if (transactionWindow.ShowDialog() == true)
             {
-                DateTime date = transactionWindow.TransactionDate;
-                string description = transactionWindow.Description;
-                decimal amount = transactionWindow.EnteredAmount;
-                TransactionCategory category = transactionWindow.Category;
-                wallet.AddTransaction(date, description, amount, category);
-                RefreshChart();
+                // Adding the transaction via the Wallet model triggers the update 
+                // to CurrentAmount and AmountSpentMonth automatically.
+                _wallet.AddTransaction(
+                    transactionWindow.TransactionDate,
+                    transactionWindow.Description,
+                    transactionWindow.EnteredAmount,
+                    transactionWindow.Category
+                );
+
+                // Because of INotifyPropertyChanged in Wallet.cs, the chart and 
+                // list in the XAML will update automatically now.
             }
         }
     }
