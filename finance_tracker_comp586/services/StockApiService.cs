@@ -94,8 +94,6 @@
                 string json = await httpClient.GetStringAsync(url);
                 using JsonDocument doc = JsonDocument.Parse(json);
 
-                // Alpha Vantage returns an empty JSON object {} if the symbol isn't found 
-                // or if you've hit your API limit.
                 if (doc.RootElement.TryGetProperty("Sector", out JsonElement sectorElement))
                 {
                     return sectorElement.GetString() ?? "Other";

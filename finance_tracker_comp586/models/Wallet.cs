@@ -23,7 +23,6 @@ namespace finance_tracker_comp586
             _amountSpentMonth = 0m;
         }
 
-        // Properties with OnPropertyChanged() to notify the UI
         public decimal CurrentAmount
         {
             get => _currentAmount;
@@ -76,7 +75,6 @@ namespace finance_tracker_comp586
 
             _transactions.Add(new Transaction(date, description, amount, category));
 
-            // Logic: Income adds to balance, everything else subtracts and adds to spending
             if (category == TransactionCategory.Income)
             {
                 CurrentAmount += amount;

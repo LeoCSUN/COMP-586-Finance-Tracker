@@ -9,7 +9,6 @@
       d:DesignWidth="1000"
       Title="Register">
 
-    <!-- Resources -->
     <Page.Resources>
         <SolidColorBrush x:Key="PrimaryOrange" Color="Orange"/>
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
@@ -31,15 +30,12 @@
         </LinearGradientBrush>
     </Page.Resources>
 
-    <!-- Background -->
     <Grid Background="{StaticResource RegisterBackground}">
 
-        <!-- Center container -->
         <StackPanel Width="300"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
 
-            <!-- Header -->
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Text="Create Account"
                            FontSize="32"
@@ -55,7 +51,6 @@
                            TextWrapping="Wrap"/>
             </StackPanel>
 
-            <!-- Inputs -->
             <clearableTextBox:ClearableTextBox
                 x:Name="FirstNameTextBox"
                 Placeholder="First Name"
@@ -84,7 +79,6 @@
                 Margin="5"
                 IsPassword="True"/>
 
-            <!-- Buttons -->
             <Button Content="Register"
                     Style="{StaticResource PrimaryButtonStyle}"
                     Click="Registration_Button_Click"/>

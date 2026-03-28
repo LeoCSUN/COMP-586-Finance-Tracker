@@ -11,12 +11,10 @@
       Title="Brokerage">
 
     <Page.Resources>
-        <!-- Colors -->
         <SolidColorBrush x:Key="PrimaryRed" Color="DarkRed"/>
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
         <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
 
-        <!-- Button Styles -->
         <Style x:Key="WhiteButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="100"/>
             <Setter Property="Height" Value="30"/>
@@ -38,10 +36,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
-        
-        
 
-        <!-- Background Gradient -->
         <LinearGradientBrush x:Key="BrokerageBackground" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#9B111E" Offset="0"/>
             <GradientStop Color="#964B00" Offset="1"/>
@@ -64,7 +59,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
         <TextBlock Grid.Row="0"
                    Text="Brokerage"
                    Foreground="{StaticResource PrimaryWhite}"
@@ -79,7 +73,6 @@
                 HorizontalAlignment="Right"
                 Click="Home_Button_Click"/>
 
-        <!-- Owned Stocks -->
         <Border Grid.Row="1"
                 BorderBrush="Transparent"
                 Margin="5"
@@ -103,7 +96,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Price Graph -->
         <Border Grid.Row="1"
                 Grid.Column="1"
                 BorderBrush="Transparent"
@@ -113,11 +105,9 @@
                 Background="{StaticResource PrimaryWhite}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Price Graph" FontSize="16"/>
-                <!-- LiveCharts placeholder -->
             </StackPanel>
         </Border>
 
-        <!-- Market Search -->
         <Border Grid.Row="2"
                 BorderBrush="Transparent"
                 Margin="5"
@@ -128,7 +118,6 @@
 
                 <TextBlock Text="Market" FontSize="16" Margin="0,0,0,10"/>
 
-                <!-- Search Bar -->
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <uc:ClearableTextBox x:Name="StockSearchBox"
                                          Width="200"
@@ -141,7 +130,6 @@
                             Click="SearchStock_Click"/>
                 </StackPanel>
 
-                <!-- Search Results Table -->
                 <ListView x:Name="SearchResultsListView">
                     <ListView.View>
                         <GridView>
@@ -156,7 +144,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Portfolio Diversification -->
         <Border Grid.Row="2"
                 Grid.Column="1"
                 BorderBrush="Transparent"

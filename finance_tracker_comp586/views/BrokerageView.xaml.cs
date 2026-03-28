@@ -7,7 +7,6 @@ namespace finance_tracker_comp586.views
 {
     public partial class BrokerageView : Page
     {
-        // Collections bound to the ListViews
         public ObservableCollection<OwnedStockDto> OwnedStocks { get; set; } = new();
         public ObservableCollection<StockSearchResultDto> SearchResults { get; set; } = new();
 
@@ -15,16 +14,13 @@ namespace finance_tracker_comp586.views
         {
             InitializeComponent();
 
-            // Bind collections to ListViews
             OwnedStocksListBox.ItemsSource = OwnedStocks;
             SearchResultsListView.ItemsSource = SearchResults;
 
-            // Example: populate owned stocks (replace with real data)
             OwnedStocks.Add(new OwnedStockDto { Stock = new StockDto { Symbol = "AAPL", Name = "Apple Inc." }, Shares = 10, AvgPrice = 150 });
             OwnedStocks.Add(new OwnedStockDto { Stock = new StockDto { Symbol = "MSFT", Name = "Microsoft Corp." }, Shares = 5, AvgPrice = 280 });
         }
 
-        // Click handler for the Search button
         private void SearchStock_Click(object sender, RoutedEventArgs e)
         {
             string symbol = StockSearchBox.Text.Trim();
@@ -35,11 +31,8 @@ namespace finance_tracker_comp586.views
                 return;
             }
 
-            // Clear previous search results
             SearchResults.Clear();
 
-            // TODO: Replace with actual search logic / API call
-            // Example: dummy search
             if (symbol.ToUpper() == "AAPL")
             {
                 SearchResults.Add(new StockSearchResultDto
@@ -66,7 +59,6 @@ namespace finance_tracker_comp586.views
             }
         }
 
-        // Press Enter in search box to trigger search
         private void StockSearchBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -75,15 +67,12 @@ namespace finance_tracker_comp586.views
             }
         }
 
-        // Home button click
         private void Home_Button_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement navigation to Home page
             MessageBox.Show("Navigate to Home page");
         }
     }
 
-    // DTOs for demo purposes
     public class OwnedStockDto
     {
         public StockDto Stock { get; set; } = new();

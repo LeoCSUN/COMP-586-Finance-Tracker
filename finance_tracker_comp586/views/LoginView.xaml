@@ -9,7 +9,6 @@
       d:DesignWidth="1000"
       Title="Login">
 
-    <!-- Resources -->
     <Page.Resources>
         <SolidColorBrush x:Key="PrimaryOrange" Color="Orange"/>
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
@@ -31,31 +30,27 @@
         </LinearGradientBrush>
     </Page.Resources>
 
-    <!-- Background -->
     <Grid Background="{StaticResource LoginBackground}">
-        <!-- Center container -->
         <StackPanel Width="300"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
 
-            <!-- Header -->
             <StackPanel Margin="0,0,0,20">
                 <TextBlock Text="Welcome"
-               FontSize="32"
-               Foreground="White"
-               Margin="5"
-               HorizontalAlignment="Center"/>
+                           FontSize="32"
+                           Foreground="White"
+                           Margin="5"
+                           HorizontalAlignment="Center"/>
 
                 <TextBlock Text="Login to an existing account."
-               FontSize="16"
-               Foreground="White"
-               Margin="5"
-               HorizontalAlignment="Center"
-               TextAlignment="Center"
-               TextWrapping="Wrap"/>
+                           FontSize="16"
+                           Foreground="White"
+                           Margin="5"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"/>
             </StackPanel>
 
-            <!-- Inputs -->
             <clearableTextBox:ClearableTextBox
                 x:Name="UsernameTextBox"
                 Placeholder="Username"
@@ -70,7 +65,6 @@
                 Margin="5"
                 IsPassword="True"/>
 
-            <!-- Buttons -->
             <Button Content="Login"
                     Style="{StaticResource PrimaryButtonStyle}"
                     Click="Login_Button_Click"/>

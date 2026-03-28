@@ -24,8 +24,6 @@ namespace finance_tracker_comp586.utils
                 DataLabelsPaint = new SolidColorPaint(SKColors.Black),
                 DataLabelsSize = 14,
                 DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
-
-                // FIX: Use .Coordinate.PrimaryValue instead of .PrimaryValue
                 DataLabelsFormatter = point => $"${point.Coordinate.PrimaryValue:N2}"
             }).ToArray();
         }

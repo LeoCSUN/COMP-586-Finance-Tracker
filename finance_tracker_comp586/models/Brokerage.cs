@@ -8,7 +8,7 @@ namespace finance_tracker_comp586
     public class Brokerage
     {
         private readonly List<OwnedStock> ownedStocks;
-        private readonly List<Stock> availableStocks; // Could be used for a "Market" view
+        private readonly List<Stock> availableStocks;
         private readonly StockApiService stockApiService;
 
         public Brokerage(StockApiService stockApiService, IEnumerable<OwnedStock>? initialOwnedStocks = null)
@@ -16,7 +16,6 @@ namespace finance_tracker_comp586
             this.stockApiService = stockApiService;
             this.availableStocks = new List<Stock>();
 
-            // When loading initial stocks, ensure we map all properties including Sector
             this.ownedStocks = initialOwnedStocks?.Select(s => new OwnedStock
             {
                 Stock = new Stock(s.Stock.Name, s.Stock.Symbol, s.Stock.Sector),
@@ -30,10 +29,6 @@ namespace finance_tracker_comp586
             return await stockApiService.GetCurrentPriceAsync(symbol);
         }
 
-        /// <summary>
-        /// Adds a stock to the portfolio. If the stock is new, it fetches 
-        /// the Sector metadata from Alpha Vantage.
-        /// </summary>
         public async Task AddStockAsync(string symbol, int shares, decimal purchasePrice)
         {
             var existing = ownedStocks.FirstOrDefault(s =>
@@ -41,7 +36,6 @@ namespace finance_tracker_comp586
 
             if (existing != null)
             {
-                // Update Weighted Average Price and Share count
                 decimal currentTotalCost = existing.Shares * existing.AvgPrice;
                 decimal newTransactionCost = shares * purchasePrice;
 
@@ -50,12 +44,7 @@ namespace finance_tracker_comp586
             }
             else
             {
-                // New stock to portfolio: Fetch the sector "The WPF Way" 
-                // so our Pie Chart can group it immediately.
                 string sector = await stockApiService.GetStockSectorAsync(symbol);
-
-                // Note: You could also fetch the full Company Name from the same OVERVIEW call
-                // but for now we use the symbol as the name if it's not provided.
                 var newOwned = new OwnedStock
                 {
                     Stock = new Stock(symbol, symbol.ToUpper(), sector),

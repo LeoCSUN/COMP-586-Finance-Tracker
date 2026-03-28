@@ -16,8 +16,6 @@ namespace finance_tracker_comp586.views.user_controls
             }
         }
 
-        #region DependencyProperty: Placeholder
-
         public static readonly DependencyProperty PlaceholderProperty =
             DependencyProperty.Register(
                 nameof(Placeholder),
@@ -40,10 +38,6 @@ namespace finance_tracker_comp586.views.user_controls
             }
         }
 
-        #endregion
-
-        #region IsPassword property
-
         private bool isPassword = false;
         public bool IsPassword
         {
@@ -55,10 +49,6 @@ namespace finance_tracker_comp586.views.user_controls
                     UpdateInputControl();
             }
         }
-
-        #endregion
-
-        #region Text property
 
         public string Text
         {
@@ -74,10 +64,6 @@ namespace finance_tracker_comp586.views.user_controls
                     textInput.Text = value;
             }
         }
-
-        #endregion
-
-        #region Private Methods
 
         private void UpdateInputControl()
         {
@@ -102,10 +88,6 @@ namespace finance_tracker_comp586.views.user_controls
             else
                 textPlaceholder.Visibility = string.IsNullOrEmpty(textInput.Text) ? Visibility.Visible : Visibility.Hidden;
         }
-
-        #endregion
-
-        #region Event Handlers
 
         private void textInput_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -135,7 +117,5 @@ namespace finance_tracker_comp586.views.user_controls
             textPlaceholder.Text = Placeholder;
             UpdateInputControl();
         }
-
-        #endregion
     }
 }
