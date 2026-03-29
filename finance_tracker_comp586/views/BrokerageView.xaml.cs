@@ -69,7 +69,7 @@ namespace finance_tracker_comp586.views
 
         private void Home_Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Navigate to Home page");
+            NavigationService?.Navigate(new HomeView());
         }
     }
 
