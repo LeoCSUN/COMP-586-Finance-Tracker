@@ -8,44 +8,79 @@
       d:DesignHeight="750" d:DesignWidth="1000"
       Title="Home">
     <Page.Resources>
+        
         <SolidColorBrush x:Key="PrimaryRed" Color="DarkRed"/>
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
         <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
-        <Style x:Key="WhiteButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
-            <Setter Property="Background" Value="{StaticResource PrimaryWhite}"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
         <LinearGradientBrush x:Key="HomeBackground" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#9B111E" Offset="0"/>
-            <GradientStop Color="#964B00" Offset="1"/>
+            <GradientStop Color="DarkRed" Offset="0"/>
+            <GradientStop Color="DarkOrange" Offset="1"/>
         </LinearGradientBrush>
+
+        <Style x:Key="CardButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="White"
+                        CornerRadius="15"
+                        Padding="15"
+                                Margin="10">
+                            <ContentPresenter ContentSource="Content" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Top"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Page.Resources>
+    
     <Page.Background>
         <StaticResource ResourceKey="HomeBackground"/>
     </Page.Background>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Text="Home" Foreground="{StaticResource PrimaryWhite}" FontSize="32" Margin="5" HorizontalAlignment="Left"/>
         <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Name}" Foreground="{StaticResource PrimaryWhite}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Wallet" Style="{StaticResource WhiteButtonStyle}" Click="Wallet_Button_Click"/>
-            <Button Content="Savings" Style="{StaticResource WhiteButtonStyle}" Click="Savings_Button_Click"/>
-            <Button Content="Brokerage" Style="{StaticResource WhiteButtonStyle}" Click="Brokerage_Button_Click"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Dashboard" Foreground="{StaticResource PrimaryWhite}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal">
+                
+                <Button Style="{StaticResource CardButtonStyle}" HorizontalContentAlignment="Left" Click="Wallet_Button_Click">
+                    <StackPanel>
+                        <TextBlock Text="Wallet" Foreground="Black" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Balance:" Foreground="Black" FontSize="16"/>
+                        <TextBlock Text="Monthly Budget:" Foreground="Black" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource CardButtonStyle}" HorizontalContentAlignment="Left" Click="Savings_Button_Click">
+                    <StackPanel>
+                        <TextBlock Text="Savings" Foreground="Black" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="Total Savings:" Foreground="Black" FontSize="16"/>
+                        <TextBlock Text="Current APY:" Foreground="Black" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource CardButtonStyle}" HorizontalContentAlignment="Left" Click="Brokerage_Button_Click">
+                    <StackPanel>
+                        <TextBlock Text="Brokerage" Foreground="Black" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="*show stock with change*" Foreground="Black" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
         </StackPanel>
     </Grid>
+    
 </Page>

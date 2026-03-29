@@ -32,8 +32,8 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <LinearGradientBrush x:Key="SavingsBackground" StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#9B111E" Offset="0"/>
-            <GradientStop Color="#964B00" Offset="1"/>
+            <GradientStop Color="DarkRed" Offset="0"/>
+            <GradientStop Color="DarkOrange" Offset="1"/>
         </LinearGradientBrush>
     </Page.Resources>
     <Page.Background>
