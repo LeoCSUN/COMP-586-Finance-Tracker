@@ -71,6 +71,12 @@ namespace finance_tracker_comp586.views
         {
             NavigationService?.Navigate(new HomeView());
         }
+
+        private void LogOff_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.CurrentUser = null;
+            NavigationService?.Navigate(new LoginView());
+        }
     }
 
     public class OwnedStockDto

@@ -4,40 +4,27 @@ namespace finance_tracker_comp586
 {
     public class AuthService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(IUserRepository userRepository)
-        {
-            this.userRepository = userRepository;
-        }
+        public AuthService(IUserRepository userRepository) => _userRepository = userRepository;
 
         public User Register(string username, string password, string firstName, string lastName)
         {
-            if (userRepository.GetUser(username) != null)
-            {
+            if (_userRepository.GetUser(username) != null)
                 throw new InvalidOperationException("Username already taken.");
-            }
 
             if (username == password)
-            {
                 throw new InvalidOperationException("Username and password cannot be the same.");
-            }
 
             User user = new User(username, password, firstName, lastName);
-            userRepository.AddUser(user);
+            _userRepository.AddUser(user);
             return user;
         }
 
         public User? Login(string username, string password)
         {
-            User? user = userRepository.GetUser(username);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            return user.VerifyPassword(password) ? user : null;
+            User? user = _userRepository.GetUser(username);
+            return user?.VerifyPassword(password) == true ? user : null;
         }
     }
 }

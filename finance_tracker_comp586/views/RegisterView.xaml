@@ -5,88 +5,93 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:clearableTextBox="clr-namespace:finance_tracker_comp586.views.user_controls"
       mc:Ignorable="d"
-      d:DesignHeight="750"
-      d:DesignWidth="1000"
+      d:DesignHeight="750" d:DesignWidth="1000"
       Title="Register">
 
     <Page.Resources>
-        <SolidColorBrush x:Key="PrimaryOrange" Color="Orange"/>
+        <SolidColorBrush x:Key="PrimaryOrange" Color="DarkOrange"/>
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
-
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="{StaticResource PrimaryOrange}"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryWhite}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
 
         <LinearGradientBrush x:Key="RegisterBackground" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="DarkRed" Offset="0"/>
             <GradientStop Color="DarkOrange" Offset="1"/>
         </LinearGradientBrush>
+
+        <Style x:Key="RegisterInputStyle" TargetType="clearableTextBox:ClearableTextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Background" Value="DarkOrange"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid Background="{StaticResource RegisterBackground}">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <StackPanel Width="300"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+            <TextBlock Text="Create Account" FontSize="32" Foreground="White" HorizontalAlignment="Center" Margin="20"/>
 
-            <StackPanel Margin="0,0,0,20">
-                <TextBlock Text="Create Account"
-                           FontSize="32"
-                           Foreground="White"
-                           Margin="5"
-                           HorizontalAlignment="Center"/>
+            <Border Background="White" CornerRadius="5" Padding="40" Width="400">
+                <StackPanel>
 
-                <TextBlock Text="Fill out the form below."
-                           FontSize="16"
-                           Foreground="White"
-                           Margin="5"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap"/>
-            </StackPanel>
+                    <clearableTextBox:ClearableTextBox x:Name="FirstNameTextBox" 
+                                                       Style="{StaticResource RegisterInputStyle}"
+                                                       Placeholder="First Name" 
+                                                       IsPassword="False"/>
 
-            <clearableTextBox:ClearableTextBox
-                x:Name="FirstNameTextBox"
-                Placeholder="First Name"
-                Height="30"
-                Margin="5"
-                IsPassword="False"/>
+                    <clearableTextBox:ClearableTextBox x:Name="LastNameTextBox" 
+                                                       Style="{StaticResource RegisterInputStyle}"
+                                                       Placeholder="Last Name" 
+                                                       IsPassword="False"/>
 
-            <clearableTextBox:ClearableTextBox
-                x:Name="LastNameTextBox"
-                Placeholder="Last Name"
-                Height="30"
-                Margin="5"
-                IsPassword="False"/>
+                    <clearableTextBox:ClearableTextBox x:Name="UsernameTextBox" 
+                                                       Style="{StaticResource RegisterInputStyle}"
+                                                       Placeholder="Username" 
+                                                       IsPassword="False"/>
 
-            <clearableTextBox:ClearableTextBox
-                x:Name="UsernameTextBox"
-                Placeholder="Username"
-                Height="30"
-                Margin="5"
-                IsPassword="False"/>
+                    <clearableTextBox:ClearableTextBox x:Name="PasswordTextBox" 
+                                                       Style="{StaticResource RegisterInputStyle}"
+                                                       Placeholder="Password" 
+                                                       IsPassword="True"/>
 
-            <clearableTextBox:ClearableTextBox
-                x:Name="PasswordTextBox"
-                Placeholder="Password"
-                Height="30"
-                Margin="5"
-                IsPassword="True"/>
+                    <Button Content="Register"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Margin="0,20,0,0"
+                            Click="Registration_Button_Click"/>
 
-            <Button Content="Register"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Click="Registration_Button_Click"/>
+                    <Button Content="Already have an account? Login"
+                            Background="Transparent"
+                            Foreground="DimGray"
+                            Margin="0,15,0,0"
+                            Cursor="Hand"
+                            Click="Login_Button_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <TextBlock Text="{TemplateBinding Content}" 
+                                           HorizontalAlignment="Center" 
+                                           TextDecorations="Underline"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-            <Button Content="Login to an Existing Account"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Click="Login_Button_Click"/>
-
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </Page>

@@ -24,5 +24,16 @@ namespace finance_tracker_comp586.views
         {
             NavigationService?.Navigate(new BrokerageView());
         }
+
+        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new HomeView());
+        }
+
+        private void LogOff_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.CurrentUser = null;
+            NavigationService?.Navigate(new LoginView());
+        }
     }
 }

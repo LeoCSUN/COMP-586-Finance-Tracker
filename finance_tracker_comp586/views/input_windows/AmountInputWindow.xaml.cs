@@ -7,6 +7,15 @@ namespace finance_tracker_comp586.views
     {
         public decimal EnteredAmount { get; set; }
 
+        public static readonly DependencyProperty LabelProperty =
+            DependencyProperty.Register(nameof(Label), typeof(string), typeof(AmountInputWindow), new PropertyMetadata("Placeholder"));
+
+        public string Label
+        {
+            get => (string)GetValue(LabelProperty);
+            set => SetValue(LabelProperty, value);
+        }
+
         public AmountInputWindow()
         {
             InitializeComponent();

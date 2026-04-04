@@ -15,42 +15,72 @@
         <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
         <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
 
-        <Style x:Key="WhiteButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
-            <Setter Property="Background" Value="{StaticResource PrimaryWhite}"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style x:Key="RedButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource PrimaryWhite}"/>
-            <Setter Property="Background" Value="{StaticResource PrimaryRed}"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
         <LinearGradientBrush x:Key="BrokerageBackground" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="DarkRed" Offset="0"/>
             <GradientStop Color="DarkOrange" Offset="1"/>
         </LinearGradientBrush>
+
+        <Style x:Key="WhiteButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <Style x:Key="SearchInputStyle" TargetType="uc:ClearableTextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
     </Page.Resources>
 
     <Page.Background>
         <StaticResource ResourceKey="BrokerageBackground"/>
     </Page.Background>
 
-    <Grid Margin="10">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -59,103 +89,100 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="Brokerage"
-                   Foreground="{StaticResource PrimaryWhite}"
-                   FontSize="32"
-                   Margin="5"
-                   HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Text="Brokerage" Foreground="White" 
+                   FontSize="32" Margin="8,0,0,15"/>
 
-        <Button Grid.Row="0"
-                Grid.Column="1"
-                Content="Home"
-                Style="{StaticResource WhiteButtonStyle}"
-                HorizontalAlignment="Right"
-                Click="Home_Button_Click"/>
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Home" Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5" Click="Home_Button_Click"/>
+            <Button Content="Log Off" Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5" Click="LogOff_Button_Click"/>
+        </StackPanel>
 
-        <Border Grid.Row="1"
-                BorderBrush="Transparent"
-                Margin="5"
-                Padding="10"
-                CornerRadius="5"
-                Background="{StaticResource PrimaryWhite}">
+        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Portfolio" FontSize="16" Foreground="Gray" Margin="0,0,0,10"/>
 
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Portfolio" FontSize="16" Margin="0,0,0,10"/>
-
-                <ListView x:Name="OwnedStocksListBox">
+                <ListView Grid.Row="1" x:Name="OwnedStocksListBox" BorderThickness="0">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Stock.Symbol}" Width="100"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Stock.Name}" Width="150"/>
-                            <GridViewColumn Header="Shares" DisplayMemberBinding="{Binding Shares}" Width="100"/>
-                            <GridViewColumn Header="Avg Price" DisplayMemberBinding="{Binding AvgPrice}" Width="120"/>
+                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Stock.Symbol}" Width="80"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Stock.Name}" Width="140"/>
+                            <GridViewColumn Header="Shares" DisplayMemberBinding="{Binding Shares}" Width="70"/>
+                            <GridViewColumn Header="Avg Price" DisplayMemberBinding="{Binding AvgPrice, StringFormat={}{0:C}}" Width="100"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </StackPanel>
+            </Grid>
         </Border>
 
-        <Border Grid.Row="1"
-                Grid.Column="1"
-                BorderBrush="Transparent"
-                Margin="5"
-                Padding="10"
-                CornerRadius="5"
-                Background="{StaticResource PrimaryWhite}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Price Graph" FontSize="16"/>
-            </StackPanel>
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Price Graph" FontSize="16" Foreground="Gray" Margin="0,0,0,10"/>
+                <lvc:CartesianChart Grid.Row="1" />
+            </Grid>
         </Border>
 
-        <Border Grid.Row="2"
-                BorderBrush="Transparent"
-                Margin="5"
-                Padding="10"
-                CornerRadius="5"
-                Background="{StaticResource PrimaryWhite}">
-            <StackPanel Orientation="Vertical">
+        <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <TextBlock Text="Market" FontSize="16" Margin="0,0,0,10"/>
+                <TextBlock Grid.Row="0" Text="Market" FontSize="16" Foreground="Gray" Margin="0,0,0,10"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
                     <uc:ClearableTextBox x:Name="StockSearchBox"
-                                         Width="200"
+                                         Style="{StaticResource SearchInputStyle}"
                                          Placeholder="Enter symbol (e.g. AAPL)"
                                          KeyDown="StockSearchBox_KeyDown"/>
 
-                    <Button Content="Search"
+                    <Button Grid.Column="1" Content="Search"
                             Style="{StaticResource RedButtonStyle}"
                             Margin="10,0,0,0"
                             Click="SearchStock_Click"/>
-                </StackPanel>
+                </Grid>
 
-                <ListView x:Name="SearchResultsListView">
+                <ListView Grid.Row="2" x:Name="SearchResultsListView" BorderThickness="0">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" Width="100"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
-                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" Width="100"/>
-                            <GridViewColumn Header="Change" DisplayMemberBinding="{Binding Change}" Width="100"/>
+                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" Width="80"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="140"/>
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price, StringFormat={}{0:C}}" Width="80"/>
+                            <GridViewColumn Header="Change" DisplayMemberBinding="{Binding Change}" Width="80"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-
-            </StackPanel>
+            </Grid>
         </Border>
 
-        <Border Grid.Row="2"
-                Grid.Column="1"
-                BorderBrush="Transparent"
-                Margin="5"
-                Padding="10"
-                CornerRadius="5"
-                Background="{StaticResource PrimaryWhite}">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Portfolio Diversification" FontSize="16"/>
-                <Grid x:Name="PieChartContainer"/>
-            </StackPanel>
+        <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Portfolio Diversification" FontSize="16" Foreground="Gray" Margin="0,0,0,10"/>
+                <Grid Grid.Row="1" x:Name="PieChartContainer"/>
+            </Grid>
         </Border>
-
     </Grid>
 </Page>

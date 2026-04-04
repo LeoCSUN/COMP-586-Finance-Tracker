@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:finance_tracker_comp586"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="1000"
+        Title="MainWindow" Height="900" Width="1200"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>

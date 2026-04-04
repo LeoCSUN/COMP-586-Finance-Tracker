@@ -7,27 +7,26 @@ namespace finance_tracker_comp586
 {
     public class Brokerage
     {
-        private readonly List<OwnedStock> ownedStocks;
-        private readonly List<Stock> availableStocks;
-        private readonly StockApiService stockApiService;
+        private readonly List<OwnedStock>  ownedStocks;
+        private readonly List<Stock>       availableStocks;
+        private readonly StockApiService   stockApiService;
 
         public Brokerage(StockApiService stockApiService, IEnumerable<OwnedStock>? initialOwnedStocks = null)
         {
             this.stockApiService = stockApiService;
             this.availableStocks = new List<Stock>();
-
-            this.ownedStocks = initialOwnedStocks?.Select(s => new OwnedStock
+            this.ownedStocks     = initialOwnedStocks?.Select(s => new OwnedStock
             {
-                Stock = new Stock(s.Stock.Name, s.Stock.Symbol, s.Stock.Sector),
-                Shares = s.Shares,
+                Stock    = new Stock(s.Stock.Name, s.Stock.Symbol, s.Stock.Sector),
+                Shares   = s.Shares,
                 AvgPrice = s.AvgPrice
             }).ToList() ?? new List<OwnedStock>();
         }
 
+        public IReadOnlyList<OwnedStock> OwnedStocks => ownedStocks;
+
         public async Task<decimal> GetStockPriceAsync(string symbol)
-        {
-            return await stockApiService.GetCurrentPriceAsync(symbol);
-        }
+            => await stockApiService.GetCurrentPriceAsync(symbol);
 
         public async Task AddStockAsync(string symbol, int shares, decimal purchasePrice)
         {
@@ -36,40 +35,36 @@ namespace finance_tracker_comp586
 
             if (existing != null)
             {
-                decimal currentTotalCost = existing.Shares * existing.AvgPrice;
+                decimal currentTotalCost  = existing.Shares * existing.AvgPrice;
                 decimal newTransactionCost = shares * purchasePrice;
 
-                existing.Shares += shares;
-                existing.AvgPrice = (currentTotalCost + newTransactionCost) / existing.Shares;
+                existing.Shares   += shares;
+                existing.AvgPrice  = (currentTotalCost + newTransactionCost) / existing.Shares;
             }
             else
             {
                 string sector = await stockApiService.GetStockSectorAsync(symbol);
-                var newOwned = new OwnedStock
+                ownedStocks.Add(new OwnedStock
                 {
-                    Stock = new Stock(symbol, symbol.ToUpper(), sector),
-                    Shares = shares,
+                    Stock    = new Stock(symbol, symbol.ToUpper(), sector),
+                    Shares   = shares,
                     AvgPrice = purchasePrice
-                };
-
-                ownedStocks.Add(newOwned);
+                });
             }
         }
-
-        public IReadOnlyList<OwnedStock> OwnedStocks => ownedStocks;
     }
 
     public class Stock
     {
-        public string Name { get; }
+        public string Name   { get; }
         public string Symbol { get; }
         public string Sector { get; set; }
 
         public Stock(string name, string symbol, string sector = "Unknown")
         {
-            this.Name = name;
-            this.Symbol = symbol;
-            this.Sector = sector;
+            Name   = name;
+            Symbol = symbol;
+            Sector = sector;
         }
 
         public async Task<decimal> GetPriceAsync(StockApiService api)
@@ -92,16 +87,14 @@ namespace finance_tracker_comp586
 
         public async Task<double> ChangeMaxAsync(StockApiService api)
         {
-            var closes = await api.GetDailyClosesAsync(Symbol);
+            var closes  = await api.GetDailyClosesAsync(Symbol);
             var ordered = closes.OrderBy(x => x.Key).ToList();
 
             if (ordered.Count < 2)
-            {
                 throw new InvalidOperationException("Not enough historical data.");
-            }
 
             decimal first = ordered.First().Value;
-            decimal last = ordered.Last().Value;
+            decimal last  = ordered.Last().Value;
 
             return (double)((last - first) / first * 100m);
         }
@@ -109,8 +102,8 @@ namespace finance_tracker_comp586
 
     public class OwnedStock
     {
-        public Stock Stock { get; set; } = null!;
-        public int Shares { get; set; }
+        public Stock   Stock    { get; set; } = null!;
+        public int     Shares   { get; set; }
         public decimal AvgPrice { get; set; }
 
         public decimal GetTotalValue(decimal currentPrice) => Shares * currentPrice;

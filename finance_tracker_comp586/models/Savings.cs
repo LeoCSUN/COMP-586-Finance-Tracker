@@ -4,18 +4,19 @@
     {
         private decimal balance;
         private decimal apy;
-        private int accountAgeMonths;
+        private int     accountAgeMonths;
         private decimal lifetimeInterestEarned;
 
         public Savings()
         {
-            this.balance = 0m;
-            this.apy = 0m;
+            balance = 0m;
+            apy     = 0m;
         }
 
-        public decimal Balance => balance;
-        public decimal APY => apy;
-        public int AccountAgeMonths => accountAgeMonths;
+        public decimal Balance          => balance;
+        public decimal APY              => apy;
+        public int     AccountAgeMonths => accountAgeMonths;
+
         public void Deposit(decimal amount)
         {
             if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount));
@@ -35,14 +36,14 @@
             apy = amount;
         }
 
-        public decimal InterestEarnedMonth() => balance * apy / 12m;
-        public decimal InterestEarnedYear() => balance * apy;
+        public decimal InterestEarnedMonth()    => balance * apy / 12m;
+        public decimal InterestEarnedYear()     => balance * apy;
         public decimal InterestEarnedLifetime() => lifetimeInterestEarned;
 
         public decimal ApplyMonthlyInterest()
         {
             decimal interest = decimal.Round(InterestEarnedMonth(), 2, MidpointRounding.ToEven);
-            balance += interest;
+            balance                += interest;
             lifetimeInterestEarned += interest;
             accountAgeMonths++;
             return interest;
