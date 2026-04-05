@@ -8,6 +8,7 @@ namespace finance_tracker_comp586.views
         public HomeView()
         {
             InitializeComponent();
+            DataContext = App.CurrentUser;
         }
 
         private void Wallet_Button_Click(object sender, RoutedEventArgs e)

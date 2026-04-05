@@ -21,7 +21,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
                                               Margin="{TemplateBinding Padding}"/>
                         </Border>
@@ -42,7 +42,7 @@
     </Window.Background>
 
     <Grid>
-        <Border Background="White" CornerRadius="15" Padding="30" Margin="10"
+        <Border Background="White" CornerRadius="10" Padding="30" Margin="10"
                 Width="440" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel>
                 <TextBlock Text="Transaction Details" Foreground="DarkRed" FontSize="16"

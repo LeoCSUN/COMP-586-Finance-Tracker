@@ -1,0 +1,65 @@
+<Window x:Class="finance_tracker_comp586.views.SellStockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:clearableTextBox="clr-namespace:finance_tracker_comp586.views.user_controls"
+        Title="Sell Stock" SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" FontSize="16">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkRed" Offset="0"/>
+            <GradientStop Color="DarkOrange" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.Background>
+        <StaticResource ResourceKey="BackgroundGradient"/>
+    </Window.Background>
+
+    <Grid>
+        <Border Background="White" CornerRadius="10" Padding="30" Margin="10"
+                Width="320" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel>
+                <TextBlock x:Name="TitleLabel"
+                           Foreground="DarkRed" FontSize="16" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                    <RadioButton x:Name="SharesRadio" Content="Shares" IsChecked="True"
+                                 Foreground="DimGray" Margin="0,0,20,0" VerticalContentAlignment="Center"/>
+                    <RadioButton x:Name="DollarsRadio" Content="Dollars ($)"
+                                 Foreground="DimGray" VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <clearableTextBox:ClearableTextBox x:Name="InputTextBox"
+                                                   Height="40" Placeholder="0.00"
+                                                   BorderBrush="LightGray" BorderThickness="1"
+                                                   Margin="0,0,0,25"/>
+                <UniformGrid Columns="2">
+                    <Button Content="Cancel" Style="{StaticResource RedButtonStyle}"
+                            Background="#EEEEEE" Foreground="DimGray"
+                            Margin="0,0,5,0" Click="Cancel_Button_Click"/>
+                    <Button Content="Confirm" Style="{StaticResource RedButtonStyle}"
+                            Margin="5,0,0,0" Click="Confirm_Button_Click"/>
+                </UniformGrid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

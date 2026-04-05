@@ -33,7 +33,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -47,7 +47,7 @@
 
             <TextBlock Text="Create Account" FontSize="32" Foreground="White" HorizontalAlignment="Center" Margin="20"/>
 
-            <Border Background="White" CornerRadius="5" Padding="40" Width="400">
+            <Border Background="White" CornerRadius="10" Padding="40" Width="400">
                 <StackPanel>
 
                     <clearableTextBox:ClearableTextBox x:Name="FirstNameTextBox" 

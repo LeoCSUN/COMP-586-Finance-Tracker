@@ -25,6 +25,16 @@ namespace finance_tracker_comp586
 
         public IReadOnlyList<OwnedStock> OwnedStocks => ownedStocks;
 
+        public void RemoveStock(string symbol, int sharesToSell)
+        {
+            var existing = ownedStocks.FirstOrDefault(s =>
+                s.Stock.Symbol.Equals(symbol, StringComparison.OrdinalIgnoreCase));
+            if (existing == null) return;
+            existing.Shares -= sharesToSell;
+            if (existing.Shares <= 0)
+                ownedStocks.Remove(existing);
+        }
+
         public async Task<decimal> GetStockPriceAsync(string symbol)
             => await stockApiService.GetCurrentPriceAsync(symbol);
 

@@ -65,13 +65,17 @@ namespace finance_tracker_comp586
         }
 
         public string    GetUsername()     => username;
-        public string    FirstName()       => firstName;
-        public string    LastName()        => lastName;
+        public string    FirstName         => firstName;
+        public string    LastName          => lastName;
+        public string    FullName          => $"{FirstName} {LastName}";
         public string    GetPasswordHash() => passwordHash;
         public string    GetSalt()         => salt;
         public Wallet    GetWallet()       => walletAccount;
         public Savings   GetSavings()      => savingsAccount;
         public Brokerage GetBrokerage()    => brokerageAccount;
+
+        public void InitializeSavingsFromStorage(decimal balance, decimal apy, int accountAgeMonths, decimal lifetimeInterestEarned, decimal principal, DateTime? principalStartDate)
+            => savingsAccount.LoadFromStorage(balance, apy, accountAgeMonths, lifetimeInterestEarned, principal, principalStartDate);
 
         public bool VerifyPassword(string password)
             => HashPassword(password, salt) == passwordHash;

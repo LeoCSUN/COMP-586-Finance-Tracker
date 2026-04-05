@@ -103,6 +103,30 @@ namespace finance_tracker_comp586
                 _spendingLegend.Add(item);
         }
 
+        public void UpdateChartDataFiltered(IEnumerable<Transaction> transactions)
+        {
+            var list = transactions.ToList();
+            SpendingSeries = ChartHelper.GetPieSeries(list);
+            _spendingLegend.Clear();
+            var sorted = list
+                .Where(t => t.Category != TransactionCategory.Income)
+                .GroupBy(t => t.Category)
+                .Select(g =>
+                {
+                    var cat = g.Key.ToString();
+                    ChartHelper.CategoryColors.TryGetValue(cat, out var colors);
+                    return new LegendItem
+                    {
+                        Category   = cat,
+                        Amount     = g.Sum(t => t.Amount),
+                        ColorBrush = colors.WpfBrush ?? Brushes.Black
+                    };
+                })
+                .OrderByDescending(x => x.Amount);
+            foreach (var item in sorted)
+                _spendingLegend.Add(item);
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

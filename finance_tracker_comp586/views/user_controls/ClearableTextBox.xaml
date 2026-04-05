@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="finance_tracker_comp586.views.user_controls.ClearableTextBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Height="30" Width="250"
+             Height="30"
+             HorizontalAlignment="Stretch"
              Loaded="UserControl_Loaded">
     <Grid Background="White">
         <TextBlock x:Name="textPlaceholder"

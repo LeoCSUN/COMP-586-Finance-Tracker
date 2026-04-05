@@ -25,8 +25,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="DarkOrange"
-                                CornerRadius="5"
+                        <Border Background="White"
+                                CornerRadius="10"
                                 Padding="20,0">
                             <ContentPresenter VerticalAlignment="Center"/>
                         </Border>
@@ -44,7 +44,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" 
                                               VerticalAlignment="Center"
                                               Margin="{TemplateBinding Padding}"/>
@@ -68,6 +68,7 @@
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
+            <TextBlock Text="{Binding FullName}" FontSize="16" Foreground="White" Margin="0,0,30,0" VerticalAlignment="Center"/>
             <Button Content="Home"
                     Style="{StaticResource WhiteButtonStyle}"
                     Margin="5"
@@ -90,32 +91,26 @@
 
             <StackPanel Orientation="Vertical">
 
-                <Border Background="White" CornerRadius="5" Padding="20">
-                    <StackPanel Orientation="Vertical">
-
                 <Button Style="{StaticResource CardButtonStyle}" Click="Wallet_Button_Click">
                     <Grid>
-                        <TextBlock Text="Wallet" FontSize="16" Foreground="White" HorizontalAlignment="Left"/>
-                        <TextBlock Text="$1,250.00" FontSize="16" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBlock Text="Wallet" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="$1,250.00" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
                     </Grid>
                 </Button>
 
                 <Button Style="{StaticResource CardButtonStyle}" Click="Savings_Button_Click">
                     <Grid>
-                        <TextBlock Text="Savings" FontSize="16" Foreground="White" HorizontalAlignment="Left"/>
-                        <TextBlock Text="$5,400.12" FontSize="16" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBlock Text="Savings" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="$5,400.12" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
                     </Grid>
                 </Button>
 
                 <Button Style="{StaticResource CardButtonStyle}" Click="Brokerage_Button_Click">
                     <Grid>
-                        <TextBlock Text="Brokerage" FontSize="16" Foreground="White" HorizontalAlignment="Left"/>
-                        <TextBlock Text="+2.4%" FontSize="16" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBlock Text="Brokerage" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="+2.4%" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
                     </Grid>
                 </Button>
-
-                    </StackPanel>
-                </Border>
 
             </StackPanel>
         </StackPanel>

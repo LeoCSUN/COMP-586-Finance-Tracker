@@ -138,8 +138,50 @@ namespace finance_tracker_comp586.data
                 }
             }
 
-            return new User(_username, hash, salt, firstName, lastName,
+            decimal savingsBalance                = 0m;
+            decimal savingsApy                     = 0m;
+            int     savingsAccountAgeMonths        = 0;
+            decimal savingsLifetimeInterestEarned  = 0m;
+            decimal savingsPrincipal               = 0m;
+            DateTime? savingsPrincipalStartDate    = null;
+
+            if (fields.TryGetProperty("savings", out JsonElement savingsElement)
+                && savingsElement.TryGetProperty("mapValue", out JsonElement savingsMap)
+                && savingsMap.TryGetProperty("fields", out JsonElement savingsFields))
+            {
+                if (savingsFields.TryGetProperty("balance", out JsonElement sbEl)
+                    && sbEl.TryGetProperty("doubleValue", out JsonElement sbVal))
+                    savingsBalance = Convert.ToDecimal(sbVal.GetDouble());
+
+                if (savingsFields.TryGetProperty("apy", out JsonElement apyEl)
+                    && apyEl.TryGetProperty("doubleValue", out JsonElement apyVal))
+                    savingsApy = Convert.ToDecimal(apyVal.GetDouble());
+
+                if (savingsFields.TryGetProperty("accountAgeMonths", out JsonElement aamEl)
+                    && aamEl.TryGetProperty("integerValue", out JsonElement aamVal))
+                    int.TryParse(aamVal.GetString(), out savingsAccountAgeMonths);
+
+                if (savingsFields.TryGetProperty("lifetimeInterestEarned", out JsonElement lieEl)
+                    && lieEl.TryGetProperty("doubleValue", out JsonElement lieVal))
+                    savingsLifetimeInterestEarned = Convert.ToDecimal(lieVal.GetDouble());
+
+                if (savingsFields.TryGetProperty("principal", out JsonElement spEl)
+                    && spEl.TryGetProperty("doubleValue", out JsonElement spVal))
+                    savingsPrincipal = Convert.ToDecimal(spVal.GetDouble());
+
+                if (savingsFields.TryGetProperty("principalStartDate", out JsonElement psdEl))
+                {
+                    string? psdStr = psdEl.GetProperty("stringValue").GetString();
+                    if (DateTime.TryParse(psdStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime psd))
+                        savingsPrincipalStartDate = psd;
+                }
+            }
+
+            var user = new User(_username, hash, salt, firstName, lastName,
                 ownedStocks, currentAmount, monthlyBudget, amountSpentMonth, transactions);
+            user.InitializeSavingsFromStorage(savingsBalance, savingsApy, savingsAccountAgeMonths,
+                savingsLifetimeInterestEarned, savingsPrincipal, savingsPrincipalStartDate);
+            return user;
         }
 
         public void AddUser(User user)
@@ -167,8 +209,8 @@ namespace finance_tracker_comp586.data
                     username     = new { stringValue = user.GetUsername() },
                     passwordHash = new { stringValue = user.GetPasswordHash() },
                     salt         = new { stringValue = user.GetSalt() },
-                    firstName    = new { stringValue = user.FirstName() },
-                    lastName     = new { stringValue = user.LastName() },
+                    firstName    = new { stringValue = user.FirstName },
+                    lastName     = new { stringValue = user.LastName },
                     brokerage = new
                     {
                         mapValue = new
@@ -176,6 +218,21 @@ namespace finance_tracker_comp586.data
                             fields = new
                             {
                                 ownedStocks = new { arrayValue = new { values = ownedStockDtos } }
+                            }
+                        }
+                    },
+                    savings = new
+                    {
+                        mapValue = new
+                        {
+                            fields = new
+                            {
+                                balance                = new { doubleValue  = (double)user.GetSavings().Balance },
+                                apy                    = new { doubleValue  = (double)user.GetSavings().APY },
+                                accountAgeMonths       = new { integerValue = user.GetSavings().AccountAgeMonths.ToString() },
+                                lifetimeInterestEarned = new { doubleValue  = (double)user.GetSavings().LifetimeInterestEarned },
+                                principal              = new { doubleValue  = (double)user.GetSavings().Principal },
+                                principalStartDate     = new { stringValue  = user.GetSavings().PrincipalStartDate?.ToString("o") ?? string.Empty }
                             }
                         }
                     }
@@ -201,7 +258,8 @@ namespace finance_tracker_comp586.data
 
         public async Task UpdateUser(User user)
         {
-            Wallet wallet = user.GetWallet();
+            Wallet  wallet  = user.GetWallet();
+            Savings savings = user.GetSavings();
 
             var firestoreTransactions = wallet.Transactions
                 .Select(t => new
@@ -245,8 +303,8 @@ namespace finance_tracker_comp586.data
                     username     = new { stringValue = user.GetUsername() },
                     passwordHash = new { stringValue = user.GetPasswordHash() },
                     salt         = new { stringValue = user.GetSalt() },
-                    firstName    = new { stringValue = user.FirstName() },
-                    lastName     = new { stringValue = user.LastName() },
+                    firstName    = new { stringValue = user.FirstName },
+                    lastName     = new { stringValue = user.LastName },
                     wallet = new
                     {
                         mapValue = new
@@ -267,6 +325,21 @@ namespace finance_tracker_comp586.data
                             fields = new
                             {
                                 ownedStocks = new { arrayValue = stocksArrayValue }
+                            }
+                        }
+                    },
+                    savings = new
+                    {
+                        mapValue = new
+                        {
+                            fields = new
+                            {
+                                balance                = new { doubleValue  = (double)savings.Balance },
+                                apy                    = new { doubleValue  = (double)savings.APY },
+                                accountAgeMonths       = new { integerValue = savings.AccountAgeMonths.ToString() },
+                                lifetimeInterestEarned = new { doubleValue  = (double)savings.LifetimeInterestEarned },
+                                principal              = new { doubleValue  = (double)savings.Principal },
+                                principalStartDate     = new { stringValue  = savings.PrincipalStartDate?.ToString("o") ?? string.Empty }
                             }
                         }
                     }

@@ -24,10 +24,12 @@ namespace finance_tracker_comp586.models
 
     public class SavingsDto
     {
-        public decimal Balance                { get; set; }
-        public decimal APY                    { get; set; }
-        public int     AccountAgeMonths       { get; set; }
-        public decimal LifetimeInterestEarned { get; set; }
+        public decimal   Balance                { get; set; }
+        public decimal   APY                    { get; set; }
+        public int       AccountAgeMonths       { get; set; }
+        public decimal   LifetimeInterestEarned { get; set; }
+        public decimal   Principal              { get; set; }
+        public string    PrincipalStartDate     { get; set; } = string.Empty;
     }
 
     public class BrokerageDto

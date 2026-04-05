@@ -33,7 +33,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -52,7 +52,7 @@
                        Margin="20"/>
 
             <Border Background="White" 
-                    CornerRadius="5" 
+                    CornerRadius="10" 
                     Padding="40" 
                     Width="380">
                 <StackPanel>
