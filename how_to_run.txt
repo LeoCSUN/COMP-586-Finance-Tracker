@@ -1,0 +1,13 @@
+how to run program
+cd .\finance_tracker_comp586\
+$env:ALPHAVANTAGE_API_KEY = "49ZD7LQAR3NM0LAP"
+$env:FIREBASE_PROJECT_ID = "comp586-finance-tracker"
+dotnet run --project finance_tracker_comp586.csproj
+
+quick check
+echo $env:ALPHAVANTAGE_API_KEY
+echo $env:FIREBASE_PROJECT_ID
+
+test account
+john123
+Mango!13579
