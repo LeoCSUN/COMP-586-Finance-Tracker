@@ -1,0 +1,118 @@
+<Page x:Class="personal_finance_tracker.views.HomeView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:personal_finance_tracker.views"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1000"
+      Title="Home">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
+        <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
+
+        <LinearGradientBrush x:Key="HomeBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkRed" Offset="0"/>
+            <GradientStop Color="DarkOrange" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="CardButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="350"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="White"
+                                CornerRadius="10"
+                                Padding="20,0">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="WhiteButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBlack}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryWhite}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.Background>
+        <StaticResource ResourceKey="HomeBackground"/>
+    </Page.Background>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <TextBlock Text="{Binding FullName}" FontSize="16" Foreground="White" Margin="0,0,30,0" VerticalAlignment="Center"/>
+            <Button Content="Home"
+                    Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5"
+                    Click="Home_Button_Click"/>
+            <Button Content="Log Off"
+                    Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5"
+                    Click="LogOff_Button_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center">
+
+            <TextBlock Text="Dashboard" 
+                       Foreground="White" 
+                       FontSize="32" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,30"/>
+
+            <StackPanel Orientation="Vertical">
+
+                <Button Style="{StaticResource CardButtonStyle}" Click="Wallet_Button_Click">
+                    <Grid>
+                        <TextBlock Text="Wallet" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="$1,250.00" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource CardButtonStyle}" Click="Savings_Button_Click">
+                    <Grid>
+                        <TextBlock Text="Savings" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="$5,400.12" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource CardButtonStyle}" Click="Brokerage_Button_Click">
+                    <Grid>
+                        <TextBlock Text="Brokerage" FontSize="16" Foreground="Black" HorizontalAlignment="Left"/>
+                        <TextBlock Text="+2.4%" FontSize="16" Foreground="Black" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Button>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

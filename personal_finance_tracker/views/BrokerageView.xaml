@@ -1,0 +1,317 @@
+<Page x:Class="personal_finance_tracker.views.BrokerageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:personal_finance_tracker.views"
+      xmlns:uc="clr-namespace:personal_finance_tracker.views.user_controls"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      mc:Ignorable="d"
+      d:DesignHeight="750" d:DesignWidth="1000"
+      Title="Brokerage">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="PrimaryRed" Color="DarkRed"/>
+        <SolidColorBrush x:Key="PrimaryWhite" Color="White"/>
+        <SolidColorBrush x:Key="PrimaryBlack" Color="Black"/>
+
+        <LinearGradientBrush x:Key="BrokerageBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkRed" Offset="0"/>
+            <GradientStop Color="DarkOrange" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="WhiteButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" 
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <Style x:Key="SearchInputStyle" TargetType="uc:ClearableTextBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style x:Key="RangeToggleStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Bd" CornerRadius="5" Padding="8,4" Background="Transparent">
+                            <TextBlock x:Name="Txt" Text="{TemplateBinding Content}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="DarkRed"/>
+                                <Setter TargetName="Txt" Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter TargetName="Bd" Property="Background" Value="#FFEEEEF0"/>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.Background>
+        <StaticResource ResourceKey="BrokerageBackground"/>
+    </Page.Background>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Text="Brokerage" Foreground="White" 
+                   FontSize="32" Margin="8,0,0,15"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Top">
+            <TextBlock Text="{Binding FullName}" FontSize="16" Foreground="White" Margin="0,0,30,0" VerticalAlignment="Center"/>
+            <Button Content="Home" Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5" Click="Home_Button_Click"/>
+            <Button Content="Log Off" Style="{StaticResource WhiteButtonStyle}"
+                    Margin="5" Click="LogOff_Button_Click"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Portfolio" FontSize="16"  Margin="0,0,0,10"/>
+
+                <ListView Grid.Row="1" x:Name="OwnedStocksListBox" BorderThickness="0"
+                          GridViewColumnHeader.Click="PortfolioHeader_Click"
+                          SelectionChanged="OwnedStocks_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Stock.Symbol}" Width="80"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Stock.Name}" Width="140"/>
+                            <GridViewColumn Header="Shares" DisplayMemberBinding="{Binding Shares}" Width="70"/>
+                            <GridViewColumn Header="Avg Price" DisplayMemberBinding="{Binding AvgPrice, StringFormat={}{0:C}}" Width="100"/>
+                            <GridViewColumn Header="" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Remove"
+                                                Tag="{Binding}"
+                                                Height="24" Padding="8,0"
+                                                Foreground="White" Background="DarkRed"
+                                                BorderThickness="0"
+                                                Click="Remove_Button_Click">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                          Margin="{TemplateBinding Padding}"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,6">
+                    <TextBlock Text="Price Graph" FontSize="16" />
+                    <TextBlock x:Name="PriceChartLabel" HorizontalAlignment="Right"
+                               Foreground="DimGray" FontSize="14" VerticalAlignment="Center"/>
+                </Grid>
+
+                <WrapPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,4">
+                    <RadioButton Content="1D"  GroupName="PriceRangeGroup" IsChecked="True" Tag="1D"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="5D"  GroupName="PriceRangeGroup" Tag="5D"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="1M"  GroupName="PriceRangeGroup" Tag="1M"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="6M"  GroupName="PriceRangeGroup" Tag="6M"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="YTD" GroupName="PriceRangeGroup" Tag="YTD" Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="1Y"  GroupName="PriceRangeGroup" Tag="1Y"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="5Y"  GroupName="PriceRangeGroup" Tag="5Y"  Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                    <RadioButton Content="Max" GroupName="PriceRangeGroup" Tag="Max" Style="{StaticResource RangeToggleStyle}" Checked="PriceRange_Checked"/>
+                </WrapPanel>
+
+                <Grid Grid.Row="2">
+                    <TextBlock x:Name="NoPriceDataText"
+                               Text="Select a stock to view price history"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="LightGray" FontSize="13"/>
+                    <lvc:CartesianChart x:Name="PriceChart" Visibility="Collapsed"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Market" FontSize="16"  Margin="0,0,0,10"/>
+
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <uc:ClearableTextBox x:Name="StockSearchBox"
+                                         Style="{StaticResource SearchInputStyle}"
+                                         Placeholder="Enter symbol (e.g. AAPL)"
+                                         KeyDown="StockSearchBox_KeyDown"/>
+
+                    <Button Grid.Column="1" Content="Search"
+                            x:Name="SearchButton"
+                            Style="{StaticResource RedButtonStyle}"
+                            Margin="10,0,0,0"
+                            Click="SearchStock_Click"/>
+                </Grid>
+
+                <ListView Grid.Row="2" x:Name="SearchResultsListView" BorderThickness="0"
+                          GridViewColumnHeader.Click="SearchResultsHeader_Click"
+                          SelectionChanged="SearchResults_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" Width="80"/>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="140"/>
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price, StringFormat={}{0:C}}" Width="80"/>
+                            <GridViewColumn Header="Change" DisplayMemberBinding="{Binding Change}" Width="80"/>
+                            <GridViewColumn Header="" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Add"
+                                                Tag="{Binding}"
+                                                Height="24" Padding="8,0"
+                                                Foreground="White" Background="DarkRed"
+                                                BorderThickness="0"
+                                                Click="Add_Button_Click">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                          Margin="{TemplateBinding Padding}"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Portfolio Diversification" FontSize="16"  Margin="0,0,0,10"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+                    <lvc:PieChart x:Name="DiversificationChart" Grid.Column="0"
+                                  LegendPosition="Hidden"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  Visibility="Collapsed"/>
+                    <ItemsControl x:Name="DiversificationLegend" Grid.Column="1"
+                                  VerticalAlignment="Center" Margin="10,0,0,0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,5">
+                                    <TextBlock Text="{Binding Category}" FontSize="12" Foreground="{Binding ColorBrush}"/>
+                                    <TextBlock Text="{Binding Amount, StringFormat={}{0:C}}" FontSize="12" Foreground="{Binding ColorBrush}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock x:Name="NoDiversificationText" Grid.ColumnSpan="2"
+                               Text="No stocks in portfolio"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="LightGray" FontSize="13"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
